@@ -1,25 +1,23 @@
 package model;
 
-import java.util.Date;
-
 public abstract class Obra {
 	private long codigo;
 	private String titulo;
 	private Autor autor;
-	private Date anoDePublicacao;
-	private boolean status;
+	private int anoDePublicacao;
+	private String status;
 
-	public abstract void getTempoEmprestimo();
+	public abstract int getTempoEmprestimo();
 
 	public Obra() {
 	}
 
-	public Obra(long codigo, String titulo, Autor autor, Date anoDePublicacao, boolean status) {
+	public Obra(long codigo, String titulo, Autor autor, int anoDePublicacao) {
 		this.codigo = codigo;
 		this.titulo = titulo;
 		this.autor = autor;
 		this.anoDePublicacao = anoDePublicacao;
-		this.status = status;
+		this.status = "disponivel";
 	}
 
 	public long getCodigo() {
@@ -46,19 +44,26 @@ public abstract class Obra {
 		this.autor = autor;
 	}
 
-	public Date getAnoDePublicacao() {
+	public int getAnoDePublicacao() {
 		return anoDePublicacao;
 	}
 
-	public void setAnoDePublicacao(Date anoDePublicacao) {
+	public void setAnoDePublicacao(int anoDePublicacao) {
 		this.anoDePublicacao = anoDePublicacao;
 	}
 
-	public boolean isStatus() {
+	public String isStatus() {
 		return status;
 	}
 
-	public void setStatus(boolean status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	@Override
+	public String toString() {
+		return "Obra [codigo=" + codigo + ", titulo=" + titulo + ", autor=" + autor + ", anoDePublicacao="
+				+ anoDePublicacao + ", status=" + status + "]";
+	}
+
 }

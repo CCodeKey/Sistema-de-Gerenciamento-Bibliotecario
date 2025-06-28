@@ -1,19 +1,18 @@
 package model;
 
-import java.util.Date;
-
 public class Revista extends Obra {
 
 	public Revista() {
 		super();
 	}
 
-	public Revista(long codigo, String titulo, Autor autor, Date anoDePublicacao, boolean status) {
-		super(codigo, titulo, autor, anoDePublicacao, status);
+	public Revista(long codigo, String titulo, Autor autor, int anoDePublicacao) {
+		super(codigo, titulo, autor, anoDePublicacao);
 	}
 
 	@Override
-	public void getTempoEmprestimo() {
-
+	public int getTempoEmprestimo() {
+		return 3;
 	}
+
 }
