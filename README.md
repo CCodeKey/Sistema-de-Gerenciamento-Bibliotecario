@@ -1,9 +1,9 @@
 # Sistema Bibliotecário com POO - Java
 Um sistema simples para gerenciar empréstimos de livros em uma biblioteca. Foi desenvolvido em Java e conta com algumas funcionalidades:
-✔ Cadastro de obras (Livros, Revistas, Artigos)
-✔ Controle de usuários (Alunos, Professores)
-✔ Empréstimos e devoluções
-✔ Relatórios em PDF
+- Cadastro de obras (Livros, Revistas, Artigos)
+- Controle de usuários (Alunos, Professores)
+- Empréstimos e devoluções
+- Relatórios em PDF
 
 ---
 
