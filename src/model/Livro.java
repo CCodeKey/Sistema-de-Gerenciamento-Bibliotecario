@@ -6,13 +6,19 @@ public class Livro extends Obra {
 		super();
 	}
 
-	public Livro(long codigo, String titulo, Autor autor, int anoDePublicacao) {
+	public Livro(long codigo, String titulo, String autor, int anoDePublicacao) {
 		super(codigo, titulo, autor, anoDePublicacao);
 	}
 
 	@Override
 	public int getTempoEmprestimo() {
 		return 7;
+	}
+
+	@Override
+	public String toString() {
+		return "Livro [codigo=" + getCodigo() + ", titulo=" + getTitulo() + ", autor=" + getAutor()
+				+ ", ano_de_publicacao=" + getAnoDePublicacao() + ", status=" + getStatus() + "]";
 	}
 
 }

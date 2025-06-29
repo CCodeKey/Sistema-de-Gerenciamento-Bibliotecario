@@ -29,10 +29,6 @@ public class Usuario {
 		return matricula;
 	}
 
-	public void setMatricula(String matricula) {
-		this.matricula = matricula;
-	}
-
 	public String getTipoUsuario() {
 		return tipoUsuario;
 	}
@@ -55,12 +51,6 @@ public class Usuario {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	@Override
-	public String toString() {
-		return "Usuario [nome=" + nome + ", matricula=" + matricula + ", tipoUsuario=" + tipoUsuario + ", telefone="
-				+ telefone + ", email=" + email + "]";
 	}
 
 }

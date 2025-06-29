@@ -8,9 +8,8 @@ public class Servidor extends Usuario {
 
 	@Override
 	public String toString() {
-		return "Servidor [getNome()=" + getNome() + ", getMatricula()=" + getMatricula() + ", getTipoUsuario()="
-				+ getTipoUsuario() + ", getTelefone()=" + getTelefone() + ", getEmail()=" + getEmail() + ", toString()="
-				+ super.toString() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
+		return "Servidor [nome=" + getNome() + ", matricula=" + getMatricula() + ", telefone=" + getTelefone()
+				+ ", email=" + getEmail() + "]";
 	}
 
 }
