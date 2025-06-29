@@ -3,7 +3,7 @@ package model;
 public abstract class Obra {
 	private long codigo;
 	private String titulo;
-	private Autor autor;
+	private String autor;
 	private int anoDePublicacao;
 	private String status;
 
@@ -12,7 +12,7 @@ public abstract class Obra {
 	public Obra() {
 	}
 
-	public Obra(long codigo, String titulo, Autor autor, int anoDePublicacao) {
+	public Obra(long codigo, String titulo, String autor, int anoDePublicacao) {
 		this.codigo = codigo;
 		this.titulo = titulo;
 		this.autor = autor;
@@ -24,10 +24,6 @@ public abstract class Obra {
 		return codigo;
 	}
 
-	public void setCodigo(long codigo) {
-		this.codigo = codigo;
-	}
-
 	public String getTitulo() {
 		return titulo;
 	}
@@ -36,11 +32,11 @@ public abstract class Obra {
 		this.titulo = titulo;
 	}
 
-	public Autor getAutor() {
+	public String getAutor() {
 		return autor;
 	}
 
-	public void setAutor(Autor autor) {
+	public void setAutor(String autor) {
 		this.autor = autor;
 	}
 
@@ -52,18 +48,12 @@ public abstract class Obra {
 		this.anoDePublicacao = anoDePublicacao;
 	}
 
-	public String isStatus() {
+	public String getStatus() {
 		return status;
 	}
 
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	@Override
-	public String toString() {
-		return "Obra [codigo=" + codigo + ", titulo=" + titulo + ", autor=" + autor + ", anoDePublicacao="
-				+ anoDePublicacao + ", status=" + status + "]";
 	}
 
 }

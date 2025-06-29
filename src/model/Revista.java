@@ -6,7 +6,7 @@ public class Revista extends Obra {
 		super();
 	}
 
-	public Revista(long codigo, String titulo, Autor autor, int anoDePublicacao) {
+	public Revista(long codigo, String titulo, String autor, int anoDePublicacao) {
 		super(codigo, titulo, autor, anoDePublicacao);
 	}
 
@@ -15,4 +15,9 @@ public class Revista extends Obra {
 		return 3;
 	}
 
+	@Override
+	public String toString() {
+		return "Revista [codigo=" + getCodigo() + ", titulo=" + getTitulo() + ", autor=" + getAutor()
+				+ ", ano_de_publicacao=" + getAnoDePublicacao() + ", status=" + getStatus() + "]";
+	}
 }

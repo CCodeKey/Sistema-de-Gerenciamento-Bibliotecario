@@ -8,9 +8,8 @@ public class Professor extends Usuario {
 
 	@Override
 	public String toString() {
-		return "Professor [getNome()=" + getNome() + ", getMatricula()=" + getMatricula() + ", getTipoUsuario()="
-				+ getTipoUsuario() + ", getTelefone()=" + getTelefone() + ", getEmail()=" + getEmail() + ", toString()="
-				+ super.toString() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
+		return "Professor [nome=" + getNome() + ", matricula=" + getMatricula() + ", telefone=" + getTelefone()
+				+ ", email=" + getEmail() + "]";
 	}
 
 }
