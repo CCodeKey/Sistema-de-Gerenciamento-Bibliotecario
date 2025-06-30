@@ -1,14 +1,13 @@
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
-import model.Aluno;
 import model.Artigo;
 import model.Emprestimo;
 import model.Livro;
 import model.Obra;
-import model.Professor;
 import model.Revista;
-import model.Servidor;
 import model.Usuario;
 
 public class Main {
@@ -19,8 +18,6 @@ public class Main {
 		ArrayList<Usuario> usuarios = new ArrayList<>();
 		ArrayList<Emprestimo> emprestimos = new ArrayList<>();
 
-		// TODO: verificar se obra ja existe pelo código
-		// TODO: não deixar o usuario pegar emprestado uma nova obra
 		while (true) {
 			System.out.println(
 					"\n###  SISTEMA BIBLIOTECÁRIO  ###\n1. Cadastrar usuário\n2. Cadastrar obra\n3. Realizar empréstimo\n4. Excluir usúario cadastrado\n5. Excluir obra cadastrada\n6. Atualizar usuário\n7. Atualizar obra\n8. Visualizar usuários cadastrados\n9. Visualizar obras cadastradas\n10. Visualizar empréstimos");
@@ -43,6 +40,7 @@ public class Main {
 				}
 
 				if (usuarioBuscado == null) {
+					UsuarioDAO userDao = new UsuarioDAO();
 					System.out.print("Tipo de usuario (Aluno - Professor - Servidor): ");
 					String tipoDeUsuario = in.next();
 
@@ -55,16 +53,31 @@ public class Main {
 					matricula = matricula.toLowerCase();
 
 					if (tipoDeUsuario.toLowerCase().equals("professor")) {
-						Usuario professor = new Professor(nome, matricula, tipoDeUsuario, telefone, email);
-						usuarios.add(professor);
+
+						Usuario professor = new Usuario(nome, matricula, "Professr", telefone, email);
+
+						try {
+							userDao.salvarUsuario(professor);
+						} catch (UsuarioExistenteNoSistemaException | IOException e) {
+							System.out.println("\nErro econtrado: " + e.getMessage());
+						}
 
 					} else if (tipoDeUsuario.toLowerCase().equals("aluno")) {
-						Usuario aluno = new Aluno(nome, matricula, tipoDeUsuario, telefone, email);
-						usuarios.add(aluno);
+						Usuario aluno = new Usuario(nome, matricula, "Aluno", telefone, email);
+
+						try {
+							userDao.salvarUsuario(aluno);
+						} catch (UsuarioExistenteNoSistemaException | IOException e) {
+							System.out.println("\nErro econtrado: " + e.getMessage());
+						}
 
 					} else if (tipoDeUsuario.toLowerCase().equals("servidor")) {
-						Usuario servidor = new Servidor(nome, matricula, tipoDeUsuario, telefone, email);
-						usuarios.add(servidor);
+						Usuario servidor = new Usuario(nome, matricula, "Servidor", telefone, email);
+						try {
+							userDao.salvarUsuario(servidor);
+						} catch (UsuarioExistenteNoSistemaException | IOException e) {
+							System.out.println("\nErro econtrado: " + e.getMessage());
+						}
 
 					} else {
 						System.out.println("\nInforme um valor válido!");
@@ -139,10 +152,15 @@ public class Main {
 						}
 					}
 					if (obra != null) {
-						obra.setStatus("Ocupado");
-						Emprestimo emprestimo = new Emprestimo(obra, user);
-						emprestimos.add(emprestimo);
-						System.out.println("\nEmpréstimo realizado com sucesso!");
+						if (obra.getStatus().equals("disponivel")) {
+							obra.setStatus("ocupado");
+							Emprestimo emprestimo = new Emprestimo(obra, user, null, null, false);
+							emprestimos.add(emprestimo);
+							System.out.println("\nEmpréstimo realizado com sucesso!");
+						} else {
+							System.out.println("\nEssa obra já está emprestada!");
+						}
+
 					} else {
 						System.out.println("\nObra não encontrada!");
 					}
@@ -185,8 +203,10 @@ public class Main {
 				// TODO: editar obra
 
 			} else if (op == 8) {
-				if (usuarios.size() != 0) {
-					for (Usuario usr : usuarios) {
+				UsuarioDAO userDao = new UsuarioDAO();
+				List<Usuario> listaDeUsuarios = userDao.listarUsuarios();
+				if (listaDeUsuarios.size() != 0) {
+					for (Usuario usr : listaDeUsuarios) {
 						System.out.println("* " + usr);
 					}
 				} else {

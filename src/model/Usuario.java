@@ -1,7 +1,5 @@
 package model;
 
-// TODO: fazer os métodos de Salvar / Editar / Excluir User
-
 public class Usuario {
 	private String nome;
 	private String matricula;
@@ -51,6 +49,12 @@ public class Usuario {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	@Override
+	public String toString() {
+		return "Usuario [nome=" + nome + ", matricula=" + matricula + ", tipoUsuario=" + tipoUsuario + ", telefone="
+				+ telefone + ", email=" + email + "]";
 	}
 
 }
