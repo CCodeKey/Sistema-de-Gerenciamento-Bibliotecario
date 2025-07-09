@@ -1,0 +1,16 @@
+[
+  {
+    "codigo": 1,
+    "titulo": "livro",
+    "autor": "livro",
+    "anoDePublicacao": 99,
+    "status": "disponivel"
+  },
+  {
+    "codigo": 2,
+    "titulo": "teste",
+    "autor": "teste",
+    "anoDePublicacao": 54,
+    "status": "disponivel"
+  }
+]
