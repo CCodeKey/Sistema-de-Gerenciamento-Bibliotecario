@@ -1,0 +1,34 @@
+[
+  {
+    "isbn": "12345",
+    "codigo": 1,
+    "titulo": "Trapalhoes",
+    "autor": "Didi Mocó",
+    "anoDePublicacao": 1995,
+    "status": "ocupado"
+  },
+  {
+    "issn": "12349",
+    "codigo": 2,
+    "titulo": "Psicoanalise",
+    "autor": "Cristian Lemos",
+    "anoDePublicacao": 2025,
+    "status": "disponivel"
+  },
+  {
+    "categoria": "Quimica",
+    "codigo": 3,
+    "titulo": "Atomos",
+    "autor": "Julio Lacerda",
+    "anoDePublicacao": 2019,
+    "status": "disponivel"
+  },
+  {
+    "isbn": "53252",
+    "codigo": 4,
+    "titulo": "Platees_and_Memories",
+    "autor": "Hellen Lima",
+    "anoDePublicacao": 2025,
+    "status": "disponivel"
+  }
+]

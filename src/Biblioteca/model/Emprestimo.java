@@ -1,15 +1,13 @@
 package Biblioteca.model;
 
-import java.util.Date;
-
 public class Emprestimo {
 	private Obra obra;
 	private Usuario usuario;
-	private Date dataDoEmprestimo;
-	private Date dataDaDevolucao;
+	private String dataDoEmprestimo;
+	private String dataDaDevolucao;
 	private boolean devolvido;
 
-	public Emprestimo(Obra obra, Usuario usuario, Date dataDoEmprestimo, Date dataDaDevolucao, boolean devolvido) {
+	public Emprestimo(Obra obra, Usuario usuario, String dataDoEmprestimo, String dataDaDevolucao, boolean devolvido) {
 		this.obra = obra;
 		this.usuario = usuario;
 		this.dataDoEmprestimo = dataDoEmprestimo;
@@ -33,15 +31,15 @@ public class Emprestimo {
 		this.usuario = usuario;
 	}
 
-	public Date getDataDoEmprestimo() {
+	public String getDataDoEmprestimo() {
 		return dataDoEmprestimo;
 	}
 
-	public Date getDataDaDevolucao() {
+	public String getDataDaDevolucao() {
 		return dataDaDevolucao;
 	}
 
-	public void setDataDaDevolucao(Date dataDaDevolucao) {
+	public void setDataDaDevolucao(String dataDaDevolucao) {
 		this.dataDaDevolucao = dataDaDevolucao;
 	}
 

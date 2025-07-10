@@ -1,18 +1,24 @@
 package Biblioteca.model;
 
 public class Livro extends Obra {
+	private String isbn;
 
-	public Livro() {
-		super();
-	}
-
-	public Livro(long codigo, String titulo, String autor, int anoDePublicacao) {
+	public Livro(long codigo, String titulo, String autor, int anoDePublicacao, String isbn) {
 		super(codigo, titulo, autor, anoDePublicacao);
+		this.isbn = isbn;
 	}
 
 	@Override
 	public int getTempoEmprestimo() {
 		return 7;
+	}
+
+	public String getIsbn() {
+		return isbn;
+	}
+
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
 	}
 
 	@Override

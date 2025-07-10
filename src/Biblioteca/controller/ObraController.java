@@ -2,9 +2,8 @@ package Biblioteca.controller;
 
 import java.io.IOException;
 
-import Biblioteca.dao.ArtigoDao;
-import Biblioteca.dao.LivroDao;
-import Biblioteca.dao.RevistaDao;
+import Biblioteca.dao.ObraDao;
+
 import Biblioteca.model.Artigo;
 import Biblioteca.model.Livro;
 import Biblioteca.model.Obra;
@@ -17,60 +16,67 @@ public class ObraController {
 	private String autor;
 	private int anoDePublicacao;
 	private String tipoDeObra;
-	private RevistaDao revistaDao;
-	private LivroDao livroDao;
-	private ArtigoDao artigoDao;
+	private ObraDao dao;
+	private String identificacao;
 
-	public ObraController(String tipoDeObra) {
-		this.tipoDeObra = tipoDeObra;
-		this.revistaDao = new RevistaDao();
-		this.artigoDao = new ArtigoDao();
-		this.livroDao = new LivroDao();
+	public ObraController() {
+		this.dao = new ObraDao();
 	}
 
-	public ObraController(long codigo, String titulo, String autor, int anoDePublicacao, String tipoDeObra) {
+	public ObraController(String tipoDeObra) {
+		this.tipoDeObra = tipoDeObra.toLowerCase();
+		this.dao = new ObraDao();
+	}
+
+	public ObraController(long codigo, String titulo, String autor, int anoDePublicacao, String tipoDeObra, String id) {
 		this.codigo = codigo;
 		this.titulo = titulo;
 		this.autor = autor;
 		this.anoDePublicacao = anoDePublicacao;
 		this.tipoDeObra = tipoDeObra.toLowerCase();
-		this.revistaDao = new RevistaDao();
-		this.artigoDao = new ArtigoDao();
-		this.livroDao = new LivroDao();
+		this.dao = new ObraDao();
+		this.identificacao = id;
 	}
 
 	public void novaObra() throws ObraExistenteException, IOException {
-		if (tipoDeObra.equals("artigo")) {
-			Obra buscarObra = artigoDao.buscarObraPorCodigo(codigo);
-			if (buscarObra == null) {
-				Obra obra = new Artigo(codigo, titulo, autor, anoDePublicacao);
-				artigoDao.salvarObra(obra);
+		Obra buscarObra = dao.buscarObraPorCodigo(codigo);
+		if (buscarObra == null) {
+			if (tipoDeObra.equals("artigo")) {
+				Obra obra = new Artigo(codigo, titulo, autor, anoDePublicacao, identificacao);
+				dao.salvarObra(obra);
 
-			} else {
-				throw new ObraExistenteException("Artigo");
+			} else if (tipoDeObra.equals("livro")) {
+				Obra obra = new Livro(codigo, titulo, autor, anoDePublicacao, identificacao);
+				dao.salvarObra(obra);
+
+			} else if (tipoDeObra.equals("revista")) {
+				Obra obra = new Revista(codigo, titulo, autor, anoDePublicacao, identificacao);
+				dao.salvarObra(obra);
+
 			}
-
-		} else if (tipoDeObra.equals("livro")) {
-			Obra buscarObra = livroDao.buscarObraPorCodigo(codigo);
-			if (buscarObra == null) {
-				Obra obra = new Livro(codigo, titulo, autor, anoDePublicacao);
-				livroDao.salvarObra(obra);
-
-			} else {
-				throw new ObraExistenteException("Livro");
-			}
-
-		} else if (tipoDeObra.equals("revista")) {
-			Obra buscarObra = revistaDao.buscarObraPorCodigo(codigo);
-			if (buscarObra == null) {
-				Obra obra = new Revista(codigo, titulo, autor, anoDePublicacao);
-				revistaDao.salvarObra(obra);
-
-			} else {
-				throw new ObraExistenteException("Revista");
-			}
+		} else {
+			throw new ObraExistenteException();
 		}
-
 	}
 
+	public Obra buscarObraPorCodigo(long codigo) {
+		if (tipoDeObra.equals("artigo")) {
+			return dao.buscarObraPorCodigo(codigo);
+
+		} else if (tipoDeObra.equals("livro")) {
+			return dao.buscarObraPorCodigo(codigo);
+
+		} else if (tipoDeObra.equals("revista")) {
+			return dao.buscarObraPorCodigo(codigo);
+		}
+		return null;
+	}
+
+	public void ocuparObra(long codigo) throws IOException {
+		dao.ocuparObra(codigo);
+	}
+
+	public void disponibilizarObra(long codigo) throws IOException {
+		dao.disponibilizarObra(codigo);
+	}
 }

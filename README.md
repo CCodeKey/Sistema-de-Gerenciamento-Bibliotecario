@@ -24,3 +24,4 @@ biblioteca/
 ├── view/       # Telas (Java Swing)  
 └── controller/ # Lógica do sistema  
 ```
+

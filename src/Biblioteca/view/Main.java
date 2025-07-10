@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Biblioteca.controller.EmprestimoController;
 import Biblioteca.controller.ObraController;
 import Biblioteca.controller.UsuarioController;
 import Biblioteca.model.Artigo;
@@ -13,6 +14,8 @@ import Biblioteca.model.Obra;
 import Biblioteca.model.Revista;
 import Biblioteca.model.Usuario;
 import Excecoes.ObraExistenteException;
+import Excecoes.ObraNaoDisponivelException;
+import Excecoes.ObraNaoExisteException;
 import Excecoes.UsuarioExistenteException;
 import Excecoes.UsuarioNaoExisteException;
 
@@ -26,7 +29,7 @@ public class Main {
 
 		while (true) {
 			System.out.println(
-					"\n###  SISTEMA BIBLIOTECÁRIO  ###\n1. Cadastrar usuário\n2. Editar usuário\n3. Excluir usuário\n4. Cadastrar Obra\n=======================================\n5. Excluir obra cadastrada\n6. Atualizar usuário\n7. Atualizar obra\n8. Visualizar usuários cadastrados\n9. Visualizar obras cadastradas\n10. Visualizar empréstimos");
+					"\n###  SISTEMA BIBLIOTECÁRIO  ###\n1. Cadastrar usuário\n2. Editar usuário\n3. Excluir usuário\n4. Cadastrar Obra\n5. Realizar empréstimo\n=======================================\n6. Atualizar usuário\n7. Atualizar obra\n8. Visualizar usuários cadastrados\n9. Visualizar obras cadastradas\n10. Visualizar empréstimos");
 			System.out.print(": ");
 			int op = in.nextInt();
 
@@ -108,8 +111,26 @@ public class Main {
 
 				System.out.print("Digite o código da obra: ");
 				long codigo = in.nextLong();
+				
+				String id = null;
+				
+				if (tipoDaObra.toLowerCase().equals("artigo")) {
+					System.out.print("Categoria do artigo: ");
+					String categoria = in.next();
+					id = categoria;
 
-				ObraController obraCtrl = new ObraController(codigo, titulo, autor, anoDePublicacao, tipoDaObra);
+				} else if (tipoDaObra.toLowerCase().equals("livro")) {
+					System.out.print("ISBN do livro: ");
+					String isbn = in.next();
+					id = isbn;
+
+				} else if (tipoDaObra.toLowerCase().equals("revista")) {
+					System.out.print("ISSN da revista: ");
+					String issn = in.next();
+					id = issn;
+				}
+
+				ObraController obraCtrl = new ObraController(codigo, titulo, autor, anoDePublicacao, tipoDaObra, id);
 
 				try {
 					obraCtrl.novaObra();
@@ -119,10 +140,51 @@ public class Main {
 				}
 
 			} else if (op == 5) {
-//				ObraController ob = new ObraController();
-//				for (Obra o : ob.listarObras()){
-//					System.out.println(o);
+
+				System.out.print("\nDigite a matrícula do usuário: ");
+				String matriculaUser = in.next();
+
+				System.out.print("Digite o tipo da obra: ");
+				String tipoObra = in.next();
+
+				System.out.print(tipoObra + " - código da obra: ");
+				long codigoObra = in.nextLong();
+
+				UsuarioController usuarioController = new UsuarioController();
+				Usuario usuario = usuarioController.buscarUsuarioPorMatricula(matriculaUser);
+
+				ObraController obraController = new ObraController(tipoObra);
+
+				Obra obra = obraController.buscarObraPorCodigo(codigoObra);
+
+				EmprestimoController emprestimo = new EmprestimoController(usuario, obra);
+
+				try {
+					emprestimo.realizarEmprestimo();
+
+				} catch (UsuarioNaoExisteException | ObraNaoExisteException | ObraNaoDisponivelException
+						| IOException e) {
+					System.out.println(e.getMessage());
+				}
+
+//					if (obra != null) {
+//						if (obra.getStatus().equals("disponivel")) {
+//							obra.setStatus("ocupado");
+//							Emprestimo emprestimo = new Emprestimo(obra, user, null, null, false);
+//							emprestimos.add(emprestimo);
+//							System.out.println("\nEmpréstimo realizado com sucesso!");
+//						} else {
+//							System.out.println("\nEssa obra já está emprestada!");
+//						}
+//
+//					} else {
+//						System.out.println("\nObra não encontrada!");
+//					}
+//
+//				} else {
+//					System.out.println("\nUsuário não econtrado!");
 //				}
+//				
 
 			} else if (op == 20) {
 
@@ -151,15 +213,21 @@ public class Main {
 					int anoDePublicacao = in.nextInt();
 
 					if (tipoDaObra.toLowerCase().equals("artigo")) {
-						Obra artigo = new Artigo(codigo, titulo, autor, anoDePublicacao);
+						System.out.print("Categoria do artigo: ");
+						String categoria = in.next();
+						Artigo artigo = new Artigo(codigo, titulo, autor, anoDePublicacao, categoria);
 						obras.add(artigo);
 
 					} else if (tipoDaObra.toLowerCase().equals("livro")) {
-						Obra livro = new Livro(codigo, titulo, autor, anoDePublicacao);
+						System.out.print("ISBN do livro: ");
+						String isbn = in.next();
+						Obra livro = new Livro(codigo, titulo, autor, anoDePublicacao, isbn);
 						obras.add(livro);
 
 					} else if (tipoDaObra.toLowerCase().equals("revista")) {
-						Obra revista = new Revista(codigo, titulo, autor, anoDePublicacao);
+						System.out.print("ISSN da revista: ");
+						String issn = in.next();
+						Revista revista = new Revista(codigo, titulo, autor, anoDePublicacao, issn);
 						obras.add(revista);
 
 					} else {

@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -14,7 +15,7 @@ import Biblioteca.model.Usuario;
 
 public class UsuarioDAO {
 	ArrayList<Usuario> usuarios = new ArrayList<>();
-	private static final String ARQUIVO_JSON_USUARIOS = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_de_Gerenciamento_Bibliotecario_novo/src/resources/usuarios.json";
+	private static final String ARQUIVO_JSON_USUARIOS = "path";
 	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	public UsuarioDAO() {
@@ -60,14 +61,12 @@ public class UsuarioDAO {
 	}
 
 	public Usuario buscarUsuarioPorMatricula(String matricula) {
-		Usuario user = null;
 		for (Usuario usr : usuarios) {
 			if (usr.getMatricula().equals(matricula)) {
-				user = usr;
-				break;
+				return usr;
 			}
 		}
-		return user;
+		return null;
 	}
 
 	public void excluirUsuario(String matricula) throws IOException {
