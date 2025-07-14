@@ -6,16 +6,20 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import Biblioteca.model.Artigo;
+import Biblioteca.model.Livro;
 import Biblioteca.model.Obra;
+import Biblioteca.model.Revista;
 import TypeAdapter.ObraTypeAdapter;
 
 public class ObraDao {
 	private ArrayList<Obra> obras = new ArrayList<>();
-	private static final String ARQUIVO_JSON_OBRAS = "path";
+	private static final String ARQUIVO_JSON_OBRAS = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_de_Gerenciamento_Bibliotecario_SPRING/src/resources/obras.json";
 	private Gson gson;
 
 	public ObraDao() {
@@ -49,24 +53,42 @@ public class ObraDao {
 		salvarDadosEmJson();
 	}
 
-	private void atualizarObra(Obra obraAtualizada) throws IOException {
-		for (int i = 0; i < obras.size(); i++) {
-			if (obras.get(i).getCodigo() == obraAtualizada.getCodigo()) {
-				obras.set(i, obraAtualizada);
-				salvarDadosEmJson();
-				return;
-			}
-		}
-		throw new IllegalArgumentException("Obra não encontrada com código: " + obraAtualizada.getCodigo());
-	}
-
 	public Obra buscarObraPorCodigo(long codigo) {
-		for (Obra ob : obras) {
-			if (ob.getCodigo() == codigo) {
-				return ob;
+		for (Obra art : obras) {
+			if (art.getCodigo() == codigo) {
+				return art;
 			}
 		}
 		return null;
+	}
+
+	public Obra buscarObraPorCodigo(long codigo, String identificacaoDoTipo) {
+		if (identificacaoDoTipo.equals("artigo")) {
+			for (Obra art : obras) {
+				if (art.getCodigo() == codigo && art instanceof Artigo) {
+					return art;
+				}
+			}
+
+		} else if (identificacaoDoTipo.equals("livro")) {
+			for (Obra liv : obras) {
+				if (liv.getCodigo() == codigo && liv instanceof Livro) {
+					return liv;
+				}
+			}
+
+		} else if (identificacaoDoTipo.equals("revista")) {
+			for (Obra rev : obras) {
+				if (rev.getCodigo() == codigo && rev instanceof Revista) {
+					return rev;
+				}
+			}
+		}
+		return null;
+	}
+
+	public List<Obra> listarObras() {
+		return obras;
 	}
 
 	public void ocuparObra(long codigoObra) throws IOException {

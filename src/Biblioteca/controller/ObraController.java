@@ -1,6 +1,7 @@
 package Biblioteca.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import Biblioteca.dao.ObraDao;
 
@@ -61,15 +62,19 @@ public class ObraController {
 
 	public Obra buscarObraPorCodigo(long codigo) {
 		if (tipoDeObra.equals("artigo")) {
-			return dao.buscarObraPorCodigo(codigo);
+			return dao.buscarObraPorCodigo(codigo, tipoDeObra);
 
 		} else if (tipoDeObra.equals("livro")) {
-			return dao.buscarObraPorCodigo(codigo);
+			return dao.buscarObraPorCodigo(codigo, tipoDeObra);
 
 		} else if (tipoDeObra.equals("revista")) {
-			return dao.buscarObraPorCodigo(codigo);
+			return dao.buscarObraPorCodigo(codigo, tipoDeObra);
 		}
 		return null;
+	}
+
+	public List<Obra> listarObras() {
+		return dao.listarObras();
 	}
 
 	public void ocuparObra(long codigo) throws IOException {

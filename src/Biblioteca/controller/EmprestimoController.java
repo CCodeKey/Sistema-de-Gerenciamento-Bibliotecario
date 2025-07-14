@@ -2,6 +2,7 @@ package Biblioteca.controller;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Random;
 
 import Biblioteca.dao.EmprestimoDao;
 import Biblioteca.model.Emprestimo;
@@ -52,6 +53,17 @@ public class EmprestimoController {
 		this.dataDaDevolucao = devolucao;
 	}
 
+	private int idEmprestimo() {
+		Random ramdom = new Random();
+		int uid = ramdom.nextInt(1000000000);
+
+		if (dao.verificarId(uid) == false) {
+			idEmprestimo();
+		}
+
+		return uid;
+	}
+
 	public void realizarEmprestimo()
 			throws UsuarioNaoExisteException, ObraNaoExisteException, IOException, ObraNaoDisponivelException {
 		if (validarInformacoes() == true) {
@@ -62,11 +74,19 @@ public class EmprestimoController {
 
 			dataDeDevolucaoDaObra();
 
-			Emprestimo emprestimo = new Emprestimo(obra, usuario, dataDoEmprestimo.toString(),
+			Emprestimo emprestimo = new Emprestimo(idEmprestimo(), obra, usuario, dataDoEmprestimo.toString(),
 					dataDaDevolucao.toString(), false);
 
 			dao.salvarEmprestimo(emprestimo);
 		}
+	}
+
+	public Emprestimo buscarEmprestimo(int idEmprestimo) {
+		return dao.buscarEmprestimo(idEmprestimo);
+	}
+
+	public void disponibilizarObraDeEmprestimo(Emprestimo emp) throws IOException {
+		dao.disponibilizarObraDeEmprestimo(emp);
 	}
 
 }

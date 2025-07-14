@@ -1,18 +1,25 @@
 package Biblioteca.model;
 
 public class Emprestimo {
+	private int id;
 	private Obra obra;
 	private Usuario usuario;
 	private String dataDoEmprestimo;
 	private String dataDaDevolucao;
 	private boolean devolvido;
 
-	public Emprestimo(Obra obra, Usuario usuario, String dataDoEmprestimo, String dataDaDevolucao, boolean devolvido) {
+	public Emprestimo(int id, Obra obra, Usuario usuario, String dataDoEmprestimo, String dataDaDevolucao,
+			boolean devolvido) {
+		this.id = id;
 		this.obra = obra;
 		this.usuario = usuario;
 		this.dataDoEmprestimo = dataDoEmprestimo;
 		this.dataDaDevolucao = dataDaDevolucao;
 		this.devolvido = devolvido;
+	}
+
+	public int getId() {
+		return id;
 	}
 
 	public Obra getObra() {
