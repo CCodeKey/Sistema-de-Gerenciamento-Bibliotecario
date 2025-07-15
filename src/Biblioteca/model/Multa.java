@@ -35,7 +35,7 @@ public class Multa {
 		return multaPaga;
 	}
 
-	public void setMmultaPaga(boolean estamultaPaga) {
+	public void setMultaPaga(boolean estamultaPaga) {
 		this.multaPaga = estamultaPaga;
 	}
 

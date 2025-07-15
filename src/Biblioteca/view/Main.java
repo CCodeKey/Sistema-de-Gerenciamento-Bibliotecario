@@ -6,11 +6,15 @@ import java.util.Scanner;
 import Biblioteca.controller.DevolucaoController;
 import Biblioteca.controller.EmprestimoController;
 import Biblioteca.controller.ObraController;
+import Biblioteca.controller.PagamentoController;
 import Biblioteca.controller.UsuarioController;
+import Biblioteca.model.Devolucao;
 import Biblioteca.model.Obra;
 import Biblioteca.model.Usuario;
+import Excecoes.DevolucaoException;
 import Excecoes.EmprestimoNaoEncontradoException;
 import Excecoes.MetodoDePagamentoException;
+import Excecoes.MultaException;
 import Excecoes.ObraExistenteException;
 import Excecoes.ObraNaoDisponivelException;
 import Excecoes.ObraNaoExisteException;
@@ -25,7 +29,7 @@ public class Main {
 
 		while (true) {
 			System.out.println(
-					"\n###  SISTEMA BIBLIOTECÁRIO  ###\n1. Cadastrar usuário\n2. Editar usuário\n3. Excluir usuário\n4. Cadastrar Obra\n5. Realizar empréstimo\n6. Devolução de Obra\n7. Listar obras");
+					"\n###  SISTEMA BIBLIOTECÁRIO  ###\n1. Cadastrar usuário\n2. Editar usuário\n3. Excluir usuário\n4. Cadastrar Obra\n5. Realizar empréstimo\n6. Devolução de Obra\n7. Pagar Devolução pendente\n8. Listar obras");
 			System.out.print(": ");
 			int op = in.nextInt();
 
@@ -171,13 +175,15 @@ public class Main {
 					DevolucaoController devol = new DevolucaoController(idEmprestimo);
 					devol.registrarDevolucao();
 					if (devol.isMulta() != null) {
-						System.out.print("\n\nDigite o método de pagamento para a multa.\n. Dinheiro\n. Pix\n. Cartão\n: ");
+						System.out.print(
+								"\n\nDigite o método de pagamento para a multa.\n. Dinheiro\n. Pix\n. Cartão\n: ");
 						String metodoPagamento = in.next();
 						devol.pagamentoDeMulta(metodoPagamento.toLowerCase());
 					}
 
 				} catch (EmprestimoNaoEncontradoException | IOException e) {
 					System.out.println(e.getMessage());
+
 				} catch (MetodoDePagamentoException e) {
 					System.out.println(e.getMessage());
 
@@ -186,9 +192,60 @@ public class Main {
 
 				} catch (ValoresNegativosException e) {
 					System.out.println(e.getMessage());
+				} catch (DevolucaoException e) {
+					System.out.println(e.getMessage());
 				}
 
 			} else if (op == 7) {
+				DevolucaoController devCtrl = new DevolucaoController();
+				PagamentoController pg = new PagamentoController();
+
+				if (devCtrl.devoulocoesNaoPagas() != null) {
+					for (Devolucao d : devCtrl.devoulocoesNaoPagas()) {
+						System.out.println("=======================================================");
+						System.out.println(d.getEmprestimo());
+						System.out.println("Multa: ID - " + d.getMulta().getId());
+						System.out.println("Multa: VALOR - R$ " + d.getMulta().getValorDaMulta());
+						System.out.println("Multa: Data do Vencimento - " + d.getMulta().getDataDeVencimento());
+						System.out.println(d.getEmprestimo().getUsuario());
+						System.out.println("=======================================================");
+						
+						System.out.print("\nID Multa: ");
+						long idMulta = in.nextLong();
+						try {
+							Devolucao devolucaoNaoPaga = pg.verificarIdMultaNaoPaga(idMulta);
+
+							System.out.print(
+									"\n\nDigite o método de pagamento para a multa.\n. Dinheiro\n. Pix\n. Cartão\n: ");
+							String metodoPagamento = in.next();
+
+							PagamentoController pagamento = new PagamentoController(
+									devolucaoNaoPaga.getMulta().getValorDaMulta(), metodoPagamento.toLowerCase(),
+									devolucaoNaoPaga.getEmprestimo().getUsuario(), devolucaoNaoPaga);
+							pagamento.pagar();
+
+						} catch (MultaException e) {
+							System.out.println(e.getMessage());
+
+						} catch (MetodoDePagamentoException e) {
+							System.out.println(e.getMessage());
+
+						} catch (UsuarioNaoExisteException e) {
+							System.out.println(e.getMessage());
+
+						} catch (ValoresNegativosException e) {
+							System.out.println(e.getMessage());
+
+						} catch (IOException e) {
+							System.out.println(e.getMessage());
+
+						} catch (DevolucaoException e) {
+							System.out.println(e.getMessage());
+						}
+					}
+				}
+
+			} else if (op == 8) {
 				ObraController obraController = new ObraController();
 				for (Obra o : obraController.listarObras()) {
 					System.out.println("- " + o);

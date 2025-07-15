@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -56,7 +57,7 @@ public class DevolucaoDao {
 		if (devolucoes.size() > 0) {
 			for (Devolucao d : devolucoes) {
 				if (d.getEmprestimo().getId() == dev.getEmprestimo().getId()) {
-					d.getMulta().setMmultaPaga(true);
+					d.getMulta().setMultaPaga(true);
 					salvarDadosEmJson();
 					break;
 				}
@@ -75,6 +76,20 @@ public class DevolucaoDao {
 			}
 		}
 		return true;
+	}
+
+	public List<Devolucao> devolucoesNaoPagas() {
+		ArrayList<Devolucao> devolucoesASeremPagas = new ArrayList<>();
+		if (devolucoes.size() > 0) {
+			for (Devolucao d : devolucoes) {
+				if (d.getMulta() != null) {
+					if (d.getMulta().getMultaPaga() == false) {
+						devolucoesASeremPagas.add(d);
+					}
+				}
+			}
+		}
+		return devolucoesASeremPagas;
 	}
 
 }

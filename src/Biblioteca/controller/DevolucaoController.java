@@ -3,12 +3,14 @@ package Biblioteca.controller;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.Random;
 
 import Biblioteca.dao.DevolucaoDao;
 import Biblioteca.model.Devolucao;
 import Biblioteca.model.Emprestimo;
 import Biblioteca.model.Multa;
+import Excecoes.DevolucaoException;
 import Excecoes.EmprestimoNaoEncontradoException;
 import Excecoes.MetodoDePagamentoException;
 import Excecoes.UsuarioNaoExisteException;
@@ -28,6 +30,10 @@ public class DevolucaoController {
 	private static final double VALOR_MULTA_POR_DIA = 10;
 	private static final double MULTA_MAXIMA = 1000.00;
 
+	public DevolucaoController() {
+		this.dao = new DevolucaoDao();
+	}
+
 	public DevolucaoController(int idEmprestimo) throws EmprestimoNaoEncontradoException {
 		this.dataDevolucaoReal = LocalDate.now();
 		this.atrasado = false;
@@ -36,7 +42,9 @@ public class DevolucaoController {
 		this.emprestimoController = new EmprestimoController();
 		this.obraController = new ObraController();
 		this.dao = new DevolucaoDao();
-		if (emprestimoController.buscarEmprestimo(idEmprestimo) != null) {
+
+		if (emprestimoController.buscarEmprestimo(idEmprestimo) != null
+				&& emprestimoController.buscarEmprestimo(idEmprestimo).getDevolvido() == false) {
 			this.emprestimo = emprestimoController.buscarEmprestimo(idEmprestimo);
 			this.dataDevolucaoDoEmprestimo = LocalDate.parse(emprestimo.getDataDaDevolucao());
 
@@ -87,14 +95,14 @@ public class DevolucaoController {
 	}
 
 	public void pagamentoDeMulta(String metodoDePagamento)
-			throws MetodoDePagamentoException, UsuarioNaoExisteException, ValoresNegativosException, IOException {
+			throws MetodoDePagamentoException, UsuarioNaoExisteException, ValoresNegativosException, IOException, DevolucaoException {
 		if (metodoDePagamento.equals("pix") || metodoDePagamento.equals("cartao")
 				|| metodoDePagamento.equals("dinheiro")) {
 			PagamentoController pgctl = new PagamentoController(multaCalculada, metodoDePagamento,
-					emprestimo.getUsuario());
+					emprestimo.getUsuario(), this.devolucao);
 			pgctl.pagar();
 
-			atualizarStatusPagamentoEmMulta();
+			atualizarStatusPagamentoEmMulta(this.devolucao);
 
 			System.out.println("Pagamento realizado com sucesso!");
 		} else {
@@ -106,8 +114,12 @@ public class DevolucaoController {
 		return this.multa;
 	}
 
-	private void atualizarStatusPagamentoEmMulta() throws IOException {
-		dao.atualizarStatusPagamentoEmMulta(this.devolucao);
+	public List<Devolucao> devoulocoesNaoPagas() {
+		return dao.devolucoesNaoPagas();
+	}
+
+	protected void atualizarStatusPagamentoEmMulta(Devolucao dev) throws IOException {
+		dao.atualizarStatusPagamentoEmMulta(dev);
 	}
 
 }
