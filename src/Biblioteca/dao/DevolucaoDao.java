@@ -14,6 +14,7 @@ import com.google.gson.GsonBuilder;
 
 import Biblioteca.model.Devolucao;
 import Biblioteca.model.Obra;
+import Excecoes.ObraNaoExisteException;
 import TypeAdapter.LocalDateTypeAdapter;
 import TypeAdapter.ObraTypeAdapter;
 
@@ -90,6 +91,19 @@ public class DevolucaoDao {
 			}
 		}
 		return devolucoesASeremPagas;
+	}
+
+	public List<Obra> listarDevoluoesComObrasAtrasadas() {
+		if (devolucoes.size() > 0) {
+			List<Obra> obras = new ArrayList<>();
+			for (Devolucao d : devolucoes) {
+				if (d.getMulta() != null) {
+					obras.add(d.getEmprestimo().getObra());
+				}
+			}
+			return obras;
+		}
+		return null;
 	}
 
 }

@@ -1,0 +1,131 @@
+[
+  {
+    "emprestimo": {
+      "id": 854972704,
+      "obra": {
+        "isbn": "12345",
+        "codigo": 1,
+        "titulo": "Trapalhoes",
+        "autor": "Didi Mocó",
+        "anoDePublicacao": 1995,
+        "status": "disponivel"
+      },
+      "usuario": {
+        "nome": "Gabriel",
+        "matricula": "123",
+        "tipoUsuario": "Aluno",
+        "telefone": "83996228117",
+        "email": "newcodiguin@gmail.com"
+      },
+      "dataDoEmprestimo": "2025-07-10",
+      "dataDaDevolucao": "2025-07-12",
+      "devolvido": true
+    },
+    "dataDevolucao": "2025-07-15",
+    "atrasado": true,
+    "multa": {
+      "id": 562113765,
+      "emprestimo": {
+        "id": 854972704,
+        "obra": {
+          "isbn": "12345",
+          "codigo": 1,
+          "titulo": "Trapalhoes",
+          "autor": "Didi Mocó",
+          "anoDePublicacao": 1995,
+          "status": "disponivel"
+        },
+        "usuario": {
+          "nome": "Gabriel",
+          "matricula": "123",
+          "tipoUsuario": "Aluno",
+          "telefone": "83996228117",
+          "email": "newcodiguin@gmail.com"
+        },
+        "dataDoEmprestimo": "2025-07-10",
+        "dataDaDevolucao": "2025-07-12",
+        "devolvido": true
+      },
+      "valorDaMulta": 30.0,
+      "dataDeVencimento": "2025-07-12",
+      "multaPaga": true
+    }
+  },
+  {
+    "emprestimo": {
+      "id": 482607197,
+      "obra": {
+        "categoria": "Quimica",
+        "codigo": 3,
+        "titulo": "Atomos",
+        "autor": "Julio Lacerda",
+        "anoDePublicacao": 2019,
+        "status": "disponivel"
+      },
+      "usuario": {
+        "nome": "Gabriel",
+        "matricula": "123",
+        "tipoUsuario": "Aluno",
+        "telefone": "83996228117",
+        "email": "newcodiguin@gmail.com"
+      },
+      "dataDoEmprestimo": "2025-07-15",
+      "dataDaDevolucao": "2025-07-17",
+      "devolvido": true
+    },
+    "dataDevolucao": "2025-07-15",
+    "atrasado": false
+  },
+  {
+    "emprestimo": {
+      "id": 992951143,
+      "obra": {
+        "categoria": "Quimica",
+        "codigo": 3,
+        "titulo": "Atomos",
+        "autor": "Julio Lacerda",
+        "anoDePublicacao": 2019,
+        "status": "disponivel"
+      },
+      "usuario": {
+        "nome": "Gabriel",
+        "matricula": "123",
+        "tipoUsuario": "Aluno",
+        "telefone": "83996228117",
+        "email": "newcodiguin@gmail.com"
+      },
+      "dataDoEmprestimo": "2025-07-10",
+      "dataDaDevolucao": "2025-07-12",
+      "devolvido": true
+    },
+    "dataDevolucao": "2025-07-15",
+    "atrasado": true,
+    "multa": {
+      "id": 994223301,
+      "emprestimo": {
+        "id": 992951143,
+        "obra": {
+          "categoria": "Quimica",
+          "codigo": 3,
+          "titulo": "Atomos",
+          "autor": "Julio Lacerda",
+          "anoDePublicacao": 2019,
+          "status": "disponivel"
+        },
+        "usuario": {
+          "nome": "Gabriel",
+          "matricula": "123",
+          "tipoUsuario": "Aluno",
+          "telefone": "83996228117",
+          "email": "newcodiguin@gmail.com"
+        },
+        "dataDoEmprestimo": "2025-07-10",
+        "dataDaDevolucao": "2025-07-12",
+        "devolvido": true
+      },
+      "valorDaMulta": 30.0,
+      "dataDeVencimento": "2025-07-12",
+      "multaPaga": true
+    }
+  }
+]

@@ -21,11 +21,13 @@ public class ObraDao {
 	private ArrayList<Obra> obras = new ArrayList<>();
 	private static final String ARQUIVO_JSON_OBRAS = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_de_Gerenciamento_Bibliotecario_SPRING/src/resources/obras.json";
 	private Gson gson;
+	private DevolucaoDao devolucaoDao;
 
 	public ObraDao() {
 		this.gson = new GsonBuilder().setPrettyPrinting().registerTypeAdapter(Obra.class, new ObraTypeAdapter())
 				.create();
 		carregarObras();
+		this.devolucaoDao = new DevolucaoDao();
 	}
 
 	private void carregarObras() {
@@ -87,8 +89,28 @@ public class ObraDao {
 		return null;
 	}
 
-	public List<Obra> listarObras() {
-		return obras;
+	public List<Obra> listarObrasDisponiveis() {
+		List<Obra> obrasDisponiveis = new ArrayList<>();
+		for (Obra ob : obras) {
+			if (ob.getStatus().equals("disponivel")) {
+				obrasDisponiveis.add(ob);
+			}
+		}
+		return obrasDisponiveis;
+	}
+
+	public List<Obra> listarObrasEmprestadas() {
+		List<Obra> obrasEmprestadas = new ArrayList<>();
+		for (Obra ob : obras) {
+			if (ob.getStatus().equals("ocupado")) {
+				obrasEmprestadas.add(ob);
+			}
+		}
+		return obrasEmprestadas;
+	}
+
+	public List<Obra> listarObrasAtrasadas() {
+		return this.devolucaoDao.listarDevoluoesComObrasAtrasadas();
 	}
 
 	public void ocuparObra(long codigoObra) throws IOException {
@@ -109,5 +131,57 @@ public class ObraDao {
 				break;
 			}
 		}
+	}
+
+	public Obra buscarPorTitulo(String titulo) {
+		if (obras.size() > 0) {
+			for (Obra obra : obras) {
+				if (obra.getTitulo().toLowerCase().equals(titulo.toLowerCase())) {
+					return obra;
+				}
+			}
+		}
+		return null;
+	}
+
+	public List<Obra> buscarPorAutor(String autor) {
+		if (obras.size() > 0) {
+			List<Obra> obras_autor = new ArrayList<>();
+			for (Obra obra : obras) {
+				if (obra.getAutor().toLowerCase().equals(autor.toLowerCase())) {
+					obras_autor.add(obra);
+				}
+			}
+			return obras_autor;
+		}
+		return null;
+	}
+
+	public List<Obra> buscarPorTipo(String tipo) {
+		if (obras.size() > 0) {
+			List<Obra> obras_encontradas = new ArrayList<>();
+
+			if (tipo.toLowerCase().equals("livro")) {
+				for (Obra obra : obras) {
+					if (obra instanceof Livro) {
+						obras_encontradas.add(obra);
+					}
+				}
+			} else if (tipo.toLowerCase().equals("artigo")) {
+				for (Obra obra : obras) {
+					if (obra instanceof Artigo) {
+						obras_encontradas.add(obra);
+					}
+				}
+			} else if (tipo.toLowerCase().equals("revista")) {
+				for (Obra obra : obras) {
+					if (obra instanceof Revista) {
+						obras_encontradas.add(obra);
+					}
+				}
+			}
+			return obras_encontradas;
+		}
+		return null;
 	}
 }

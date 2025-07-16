@@ -3,6 +3,7 @@ package Biblioteca.controller;
 import java.io.IOException;
 import java.util.List;
 
+import Biblioteca.dao.DevolucaoDao;
 import Biblioteca.dao.ObraDao;
 
 import Biblioteca.model.Artigo;
@@ -10,6 +11,8 @@ import Biblioteca.model.Livro;
 import Biblioteca.model.Obra;
 import Biblioteca.model.Revista;
 import Excecoes.ObraExistenteException;
+import Excecoes.ObraNaoEncontradaException;
+import Excecoes.ObraNaoExisteException;
 
 public class ObraController {
 	private long codigo;
@@ -22,6 +25,7 @@ public class ObraController {
 
 	public ObraController() {
 		this.dao = new ObraDao();
+
 	}
 
 	public ObraController(String tipoDeObra) {
@@ -73,8 +77,47 @@ public class ObraController {
 		return null;
 	}
 
-	public List<Obra> listarObras() {
-		return dao.listarObras();
+	public List<Obra> listarObrasDisponiveis() throws ObraNaoExisteException {
+		if (dao.listarObrasDisponiveis() == null || dao.listarObrasDisponiveis().isEmpty()) {
+			throw new ObraNaoExisteException();
+		}
+		return dao.listarObrasDisponiveis();
+	}
+
+	public List<Obra> listarObrasEmprestadas() throws ObraNaoExisteException {
+		if (dao.listarObrasEmprestadas() == null || dao.listarObrasEmprestadas().isEmpty()) {
+			throw new ObraNaoExisteException();
+		}
+		return dao.listarObrasEmprestadas();
+	}
+
+	public List<Obra> listarObrasAtrasadas() throws ObraNaoExisteException {
+		if (dao.listarObrasAtrasadas() == null || dao.listarObrasAtrasadas().isEmpty()) {
+			throw new ObraNaoExisteException();
+		}
+		return dao.listarObrasAtrasadas();
+	}
+
+	public Obra buscarPorTitulo(String titulo) throws ObraNaoEncontradaException {
+		if (dao.buscarPorTitulo(titulo) == null) {
+			throw new ObraNaoEncontradaException();
+
+		}
+		return dao.buscarPorTitulo(titulo);
+	}
+
+	public List<Obra> buscarPorAutor(String autor) throws ObraNaoEncontradaException {
+		if (dao.buscarPorAutor(autor) == null || dao.buscarPorAutor(autor).isEmpty()) {
+			throw new ObraNaoEncontradaException();
+		}
+		return dao.buscarPorAutor(autor);
+	}
+
+	public List<Obra> buscarPorTipo(String tipo) throws ObraNaoEncontradaException {
+		if (dao.buscarPorTipo(tipo) == null || dao.buscarPorTipo(tipo).isEmpty()) {
+			throw new ObraNaoEncontradaException();
+		}
+		return dao.buscarPorTipo(tipo);
 	}
 
 	public void ocuparObra(long codigo) throws IOException {

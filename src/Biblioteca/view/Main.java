@@ -17,6 +17,7 @@ import Excecoes.MetodoDePagamentoException;
 import Excecoes.MultaException;
 import Excecoes.ObraExistenteException;
 import Excecoes.ObraNaoDisponivelException;
+import Excecoes.ObraNaoEncontradaException;
 import Excecoes.ObraNaoExisteException;
 import Excecoes.UsuarioExistenteException;
 import Excecoes.UsuarioNaoExisteException;
@@ -26,10 +27,11 @@ public class Main {
 
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
+		System.out.println("\n###  SISTEMA BIBLIOTECÁRIO  ###");
 
 		while (true) {
 			System.out.println(
-					"\n###  SISTEMA BIBLIOTECÁRIO  ###\n1. Cadastrar usuário\n2. Editar usuário\n3. Excluir usuário\n4. Cadastrar Obra\n5. Realizar empréstimo\n6. Devolução de Obra\n7. Pagar Devolução pendente\n8. Listar obras");
+					"\n=================================\n1. Cadastrar usuário\n2. Editar usuário\n3. Excluir usuário\n4. Cadastrar Obra\n5. Realizar empréstimo\n6. Devolução de Obra\n7. Pagar Devolução pendente\n8. Listar obras\n9. Buscar obra por título\n10. Buscar obra por Autor\n11. Buscar obra tipo da obra");
 			System.out.print(": ");
 			int op = in.nextInt();
 
@@ -209,7 +211,7 @@ public class Main {
 						System.out.println("Multa: Data do Vencimento - " + d.getMulta().getDataDeVencimento());
 						System.out.println(d.getEmprestimo().getUsuario());
 						System.out.println("=======================================================");
-						
+
 						System.out.print("\nID Multa: ");
 						long idMulta = in.nextLong();
 						try {
@@ -247,8 +249,69 @@ public class Main {
 
 			} else if (op == 8) {
 				ObraController obraController = new ObraController();
-				for (Obra o : obraController.listarObras()) {
-					System.out.println("- " + o);
+				System.out.println("\n####  OBRAS DISPONÍVEIS  ####");
+				try {
+					for (Obra l1 : obraController.listarObrasDisponiveis()) {
+						System.out.println("- " + l1);
+					}
+				} catch (ObraNaoExisteException e) {
+					System.out.println("- 0.");
+				}
+
+				System.out.println("\n####  OBRAS OCUPADAS  ####");
+				try {
+					for (Obra l2 : obraController.listarObrasEmprestadas()) {
+						System.out.println("- " + l2);
+					}
+				} catch (ObraNaoExisteException e) {
+					System.out.println("- 0.");
+				}
+
+				try {
+					System.out.println("\n####  OBRAS ATRASADAS  ####");
+					for (Obra l3 : obraController.listarObrasAtrasadas()) {
+						System.out.println("- " + l3);
+					}
+				} catch (ObraNaoExisteException e) {
+					System.out.println("- 0.");
+				}
+
+			} else if (op == 9) {
+				ObraController obra = new ObraController();
+				System.out.print("Digite o título da Obra.\n: ");
+				String titulo = in.next();
+				try {
+					System.out.println(obra.buscarPorTitulo(titulo));
+
+				} catch (ObraNaoEncontradaException e) {
+					System.out.println(e.getMessage());
+				}
+
+			} else if (op == 10) {
+				ObraController obra = new ObraController();
+				System.out.print("Digite o nome do autor da Obra.\n: ");
+				String autor = in.next();
+				try {
+					for (Obra ob : obra.buscarPorAutor(autor)) {
+						System.out.println(ob);
+
+					}
+
+				} catch (ObraNaoEncontradaException e) {
+					System.out.println(e.getMessage());
+				}
+
+			} else if (op == 11) {
+				ObraController obra = new ObraController();
+				System.out.print("Digite o tipo Obra.\n- Artigo\n- Livro\n- Revista\n: ");
+				String tipo = in.next();
+				try {
+					for (Obra ob : obra.buscarPorTipo(tipo)) {
+						System.out.println(ob);
+
+					}
+				} catch (ObraNaoEncontradaException e) {
+					System.out.println(e.getMessage());
 				}
 
 			} else {
