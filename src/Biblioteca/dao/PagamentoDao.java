@@ -15,7 +15,7 @@ import TypeAdapter.ObraTypeAdapter;
 
 public class PagamentoDao {
 	private ArrayList<Pagamento> pagamentos = new ArrayList<>();
-	private static final String ARQUIVO_JSON_PAGAMENTOS = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_de_Gerenciamento_Bibliotecario_SPRING/src/resources/pagamentos.json";
+	private static final String ARQUIVO_JSON_PAGAMENTOS = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_de_Gerenciamento_Bibliotecario_SPRING/src/resources/json/pagamentos.json";
 	private Gson gson;
 
 	public PagamentoDao() {

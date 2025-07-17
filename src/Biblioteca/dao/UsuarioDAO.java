@@ -15,7 +15,7 @@ import Biblioteca.model.Usuario;
 
 public class UsuarioDAO {
 	ArrayList<Usuario> usuarios = new ArrayList<>();
-	private static final String ARQUIVO_JSON_USUARIOS = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_de_Gerenciamento_Bibliotecario_SPRING/src/resources/usuarios.json";
+	private static final String ARQUIVO_JSON_USUARIOS = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_de_Gerenciamento_Bibliotecario_SPRING/src/resources/json/usuarios.json";
 	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	public UsuarioDAO() {

@@ -19,7 +19,7 @@ import TypeAdapter.ObraTypeAdapter;
 
 public class ObraDao {
 	private ArrayList<Obra> obras = new ArrayList<>();
-	private static final String ARQUIVO_JSON_OBRAS = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_de_Gerenciamento_Bibliotecario_SPRING/src/resources/obras.json";
+	private static final String ARQUIVO_JSON_OBRAS = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_de_Gerenciamento_Bibliotecario_SPRING/src/resources/json/obras.json";
 	private Gson gson;
 	private DevolucaoDao devolucaoDao;
 

@@ -2,12 +2,14 @@ package Biblioteca.controller;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Random;
 
 import Biblioteca.dao.EmprestimoDao;
 import Biblioteca.model.Emprestimo;
 import Biblioteca.model.Obra;
 import Biblioteca.model.Usuario;
+import Excecoes.EmprestimoNaoEncontradoException;
 import Excecoes.ObraNaoDisponivelException;
 import Excecoes.ObraNaoExisteException;
 import Excecoes.UsuarioNaoExisteException;
@@ -87,6 +89,13 @@ public class EmprestimoController {
 
 	public void disponibilizarObraDeEmprestimo(Emprestimo emp) throws IOException {
 		dao.disponibilizarObraDeEmprestimo(emp);
+	}
+
+	public List<Emprestimo> listarEmprestimos() throws EmprestimoNaoEncontradoException {
+		if (dao.listarEmprestimos() == null) {
+			throw new EmprestimoNaoEncontradoException();
+		}
+		return dao.listarEmprestimos();
 	}
 
 }

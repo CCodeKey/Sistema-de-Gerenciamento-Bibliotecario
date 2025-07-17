@@ -10,6 +10,8 @@ import Biblioteca.dao.DevolucaoDao;
 import Biblioteca.model.Devolucao;
 import Biblioteca.model.Emprestimo;
 import Biblioteca.model.Multa;
+import Biblioteca.model.Obra;
+import Biblioteca.model.Usuario;
 import Excecoes.DevolucaoException;
 import Excecoes.EmprestimoNaoEncontradoException;
 import Excecoes.MetodoDePagamentoException;
@@ -94,8 +96,8 @@ public class DevolucaoController {
 		System.out.println("Devolução realizada com sucesso!");
 	}
 
-	public void pagamentoDeMulta(String metodoDePagamento)
-			throws MetodoDePagamentoException, UsuarioNaoExisteException, ValoresNegativosException, IOException, DevolucaoException {
+	public void pagamentoDeMulta(String metodoDePagamento) throws MetodoDePagamentoException, UsuarioNaoExisteException,
+			ValoresNegativosException, IOException, DevolucaoException {
 		if (metodoDePagamento.equals("pix") || metodoDePagamento.equals("cartao")
 				|| metodoDePagamento.equals("dinheiro")) {
 			PagamentoController pgctl = new PagamentoController(multaCalculada, metodoDePagamento,
@@ -122,4 +124,7 @@ public class DevolucaoController {
 		dao.atualizarStatusPagamentoEmMulta(dev);
 	}
 
+	public List<Usuario> listaUsuariosComAtraso() {
+		return dao.listarUsuariosComAtraso();
+	}
 }

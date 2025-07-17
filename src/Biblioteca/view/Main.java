@@ -7,6 +7,7 @@ import Biblioteca.controller.DevolucaoController;
 import Biblioteca.controller.EmprestimoController;
 import Biblioteca.controller.ObraController;
 import Biblioteca.controller.PagamentoController;
+import Biblioteca.controller.RelatorioController;
 import Biblioteca.controller.UsuarioController;
 import Biblioteca.model.Devolucao;
 import Biblioteca.model.Obra;
@@ -31,7 +32,7 @@ public class Main {
 
 		while (true) {
 			System.out.println(
-					"\n=================================\n1. Cadastrar usuário\n2. Editar usuário\n3. Excluir usuário\n4. Cadastrar Obra\n5. Realizar empréstimo\n6. Devolução de Obra\n7. Pagar Devolução pendente\n8. Listar obras\n9. Buscar obra por título\n10. Buscar obra por Autor\n11. Buscar obra tipo da obra");
+					"\n=================================\n1. Cadastrar usuário\n2. Editar usuário\n3. Excluir usuário\n4. Cadastrar Obra\n5. Realizar empréstimo\n6. Devolução de Obra\n7. Pagar Devolução pendente\n8. Listar obras\n9. Buscar obra por título\n10. Buscar obra por Autor\n11. Buscar obra tipo da obra\n12. Gerar relatório de empréstimos do mês\n13. Gerar relatório de obras + emprestadas\n14. Gerar relatório de usuários + atrasados");
 			System.out.print(": ");
 			int op = in.nextInt();
 
@@ -311,6 +312,28 @@ public class Main {
 
 					}
 				} catch (ObraNaoEncontradaException e) {
+					System.out.println(e.getMessage());
+				}
+
+			} else if (op == 12) {
+				RelatorioController relatorio = new RelatorioController();
+				relatorio.relatorioDeEmprestimosDoMes();
+
+			} else if (op == 13) {
+				RelatorioController relatorio = new RelatorioController();
+				try {
+					relatorio.relatorioDeObrasMaisEmprestadas();
+
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				}
+
+			} else if (op == 14) {
+				RelatorioController relatorio = new RelatorioController();
+				try {
+					relatorio.relatorioDeUsuariosComMaisAtrasos();
+
+				} catch (Exception e) {
 					System.out.println(e.getMessage());
 				}
 

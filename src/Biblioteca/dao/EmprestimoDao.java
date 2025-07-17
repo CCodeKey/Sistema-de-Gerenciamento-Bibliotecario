@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.time.LocalDate;
 
 import com.google.gson.Gson;
@@ -17,7 +18,7 @@ import Biblioteca.model.Emprestimo;
 
 public class EmprestimoDao {
 	ArrayList<Emprestimo> emprestimos = new ArrayList<>();
-	private static final String ARQUIVO_JSON_EMPRESTIMOS = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_de_Gerenciamento_Bibliotecario_SPRING/src/resources/emprestimos.json";
+	private static final String ARQUIVO_JSON_EMPRESTIMOS = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_de_Gerenciamento_Bibliotecario_SPRING/src/resources/json/emprestimos.json";
 	private Gson gson;
 
 	public EmprestimoDao() {
@@ -81,5 +82,12 @@ public class EmprestimoDao {
 			}
 		}
 
+	}
+
+	public List<Emprestimo> listarEmprestimos() {
+		if (emprestimos.size() > 1) {
+			return emprestimos;
+		}
+		return null;
 	}
 }

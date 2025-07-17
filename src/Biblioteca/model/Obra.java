@@ -1,5 +1,7 @@
 package Biblioteca.model;
 
+import java.util.Objects;
+
 public abstract class Obra {
 	private long codigo;
 	private String titulo;
@@ -54,6 +56,24 @@ public abstract class Obra {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(anoDePublicacao, autor, codigo, status, titulo);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Obra other = (Obra) obj;
+		return anoDePublicacao == other.anoDePublicacao && Objects.equals(autor, other.autor) && codigo == other.codigo
+				&& Objects.equals(status, other.status) && Objects.equals(titulo, other.titulo);
 	}
 
 }
