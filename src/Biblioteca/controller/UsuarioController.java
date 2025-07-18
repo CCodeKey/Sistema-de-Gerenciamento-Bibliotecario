@@ -38,7 +38,7 @@ public class UsuarioController {
 
 	}
 
-	public void editarUsuario(String matricula, String nome, String telefone, String email)
+	public void editarUsuario(String matricula, String nome, String telefone)
 			throws UsuarioNaoExisteException, IOException {
 		Usuario usuario = dao.buscarUsuarioPorMatricula(matricula);
 

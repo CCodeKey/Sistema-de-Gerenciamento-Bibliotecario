@@ -1,0 +1,32 @@
+[
+  {
+    "id": 0,
+    "cpf": "1212",
+    "password": "1212",
+    "nome": "Gabriel_de_Freitas_Tertuliano",
+    "matricula": "1212",
+    "tipoUsuario": "administrador",
+    "telefone": "12342235",
+    "email": "gabriel@gmail.com"
+  },
+  {
+    "id": 0,
+    "cpf": "1313",
+    "password": "1313",
+    "nome": "ana",
+    "matricula": "3534",
+    "tipoUsuario": "bibliotecario",
+    "telefone": "536346",
+    "email": "bibi@gmail.com"
+  },
+  {
+    "id": 0,
+    "cpf": "1414",
+    "password": "1414",
+    "nome": "asdsad",
+    "matricula": "36346",
+    "tipoUsuario": "estagiario",
+    "telefone": "3526365",
+    "email": "esta@gmail.com"
+  }
+]

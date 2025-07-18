@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import Biblioteca.controller.DevolucaoController;
 import Biblioteca.controller.EmprestimoController;
+import Biblioteca.controller.LoginController;
 import Biblioteca.controller.ObraController;
 import Biblioteca.controller.PagamentoController;
 import Biblioteca.controller.RelatorioController;
@@ -21,6 +22,7 @@ import Excecoes.ObraNaoDisponivelException;
 import Excecoes.ObraNaoEncontradaException;
 import Excecoes.ObraNaoExisteException;
 import Excecoes.UsuarioExistenteException;
+import Excecoes.UsuarioInformacoesInvalidas;
 import Excecoes.UsuarioNaoExisteException;
 import Excecoes.ValoresNegativosException;
 
@@ -28,57 +30,128 @@ public class Menu {
 	Scanner in = new Scanner(System.in);
 
 	public void main() {
-		System.out.print(
-				"\n##  MENU  ##\n1. Cadastrar usuário\n2. Editar usuário\n3. Excluir usuário\n4. Cadastrar Obra\n5. Realizar empréstimo\n6. Devolução de Obra\n7. Pagar Devolução pendente\n8. Listar obras\n9. Buscar obra por título\n10. Buscar obra por Autor\n11. Buscar obra tipo da obra\n12. Gerar relatório de empréstimos do mês\n13. Gerar relatório de obras + emprestadas\n14. Gerar relatório de usuários + atrasados\n15. Logout\n: ");
-		int op = in.nextInt();
 
-		if (op == 1) {
-			cadastrarUsuario();
+		if (Login.perfilAcessoUser.equals("administrador")) {
+			System.out.print(
+					"\n##  MENU  ##\n1. Cadastrar usuário\n2. Editar usuário\n3. Excluir usuário\n4. Cadastrar Obra\n5. Realizar empréstimo\n6. Devolução de Obra\n7. Pagar Devolução pendente\n8. Listar obras\n9. Buscar obra por título\n10. Buscar obra por Autor\n11. Buscar obra tipo da obra\n12. Gerar relatório de empréstimos do mês\n13. Gerar relatório de obras + emprestadas\n14. Gerar relatório de usuários + atrasados\n15. Cadastrar usuário Administrador\n16. Logout\n: ");
+			int op = in.nextInt();
 
-		} else if (op == 2) {
-			editarUsuario();
+			if (op == 1) {
+				cadastrarUsuario();
 
-		} else if (op == 3) {
-			excluirUsuario();
+			} else if (op == 2) {
+				editarUsuario();
 
-		} else if (op == 4) {
-			cadastrarObra();
+			} else if (op == 3) {
+				excluirUsuario();
 
-		} else if (op == 5) {
-			realizarEmprestimo();
+			} else if (op == 4) {
+				cadastrarObra();
 
-		} else if (op == 6) {
-			realizarDevolucaoDeObra();
+			} else if (op == 5) {
+				realizarEmprestimo();
 
-		} else if (op == 7) {
-			pagarDevolucaoPendente();
+			} else if (op == 6) {
+				realizarDevolucaoDeObra();
 
-		} else if (op == 8) {
-			listarObras();
+			} else if (op == 7) {
+				pagarDevolucaoPendente();
 
-		} else if (op == 9) {
-			buscarObraPorTitulo();
+			} else if (op == 8) {
+				listarObras();
 
-		} else if (op == 10) {
-			buscarObraPorAutor();
+			} else if (op == 9) {
+				buscarObraPorTitulo();
 
-		} else if (op == 11) {
-			buscarObraPorTipo();
+			} else if (op == 10) {
+				buscarObraPorAutor();
 
-		} else if (op == 12) {
-			relatorioDeEmprestimosDoMes();
+			} else if (op == 11) {
+				buscarObraPorTipo();
 
-		} else if (op == 13) {
-			relatorioDeObrasMaisEmprestadas();
+			} else if (op == 12) {
+				relatorioDeEmprestimosDoMes();
 
-		} else if (op == 14) {
-			relatorioDeUsuarios();
+			} else if (op == 13) {
+				relatorioDeObrasMaisEmprestadas();
 
-		} else if (op == 15) {
-			logout();
+			} else if (op == 14) {
+				relatorioDeUsuarios();
+
+			} else if (op == 15) {
+				try {
+					cadastrarUsuarioADM();
+
+				} catch (IOException | UsuarioInformacoesInvalidas e) {
+					System.out.println(e.getMessage());
+				}
+
+			} else if (op == 16) {
+				logout();
+
+			} else {
+				System.out.println("\nInforme uma opção válida!");
+			}
+
+		} else if (Login.perfilAcessoUser.equals("bibliotecario")) {
+			System.out.print(
+					"\n##  MENU  ##\n1. Realizar empréstimo\n2. Devolução de Obra\n3. Pagar Devolução pendente\n4. Listar obras\n5. Buscar obra por título\n6. Buscar obra por Autor\n7. Buscar obra tipo da obra\n8. Gerar relatório de empréstimos do mês\n9. Gerar relatório de obras + emprestadas\n10. Gerar relatório de usuários + atrasados\n11. Logout\n: ");
+			int op = in.nextInt();
+
+			if (op == 1) {
+				realizarEmprestimo();
+
+			} else if (op == 2) {
+				realizarDevolucaoDeObra();
+
+			} else if (op == 3) {
+				pagarDevolucaoPendente();
+
+			} else if (op == 4) {
+				listarObras();
+
+			} else if (op == 5) {
+				buscarObraPorTitulo();
+
+			} else if (op == 6) {
+				buscarObraPorAutor();
+
+			} else if (op == 7) {
+				buscarObraPorTipo();
+
+			} else if (op == 8) {
+				relatorioDeEmprestimosDoMes();
+
+			} else if (op == 9) {
+				relatorioDeObrasMaisEmprestadas();
+
+			} else if (op == 10) {
+				relatorioDeUsuarios();
+
+			} else if (op == 11) {
+				logout();
+
+			} else {
+				System.out.println("\nInforme uma opção válida!");
+			}
 
 		} else {
-			System.out.println("\nInforme uma opção válida!");
+			System.out.print("\n##  MENU  ##\n1. Devolução de Obra\n2. Pagar Devolução pendente\n3. Logout\n: ");
+			int op = in.nextInt();
+
+			if (op == 1) {
+				realizarDevolucaoDeObra();
+
+			} else if (op == 2) {
+				pagarDevolucaoPendente();
+
+			} else if (op == 3) {
+				logout();
+
+			} else {
+				System.out.println("\nInforme uma opção válida!");
+			}
+
 		}
 
 	}
@@ -121,14 +194,11 @@ public class Menu {
 		System.out.print("Novo telefone: +55 ");
 		String telefone = in.next();
 
-		System.out.print("Novo email: ");
-		String email = in.next();
-
 		matricula = matricula.toLowerCase();
 
 		UsuarioController usuario = new UsuarioController();
 		try {
-			usuario.editarUsuario(matricula, nome, telefone, email);
+			usuario.editarUsuario(matricula, nome, telefone);
 
 		} catch (UsuarioNaoExisteException | IOException e) {
 			System.out.println(e.getMessage());
@@ -409,8 +479,38 @@ public class Menu {
 
 	}
 
+	private void cadastrarUsuarioADM() throws IOException, UsuarioInformacoesInvalidas {
+		System.out.print("\nSeu nome: ");
+		String nome = in.next();
+
+		System.out.print("Sua matricula: ");
+		String matricula = in.next();
+
+		System.out.print("Tipo de usuario (Administrador - Bibliotecário - Estagário): ");
+		String tipoDeUsuario = in.next();
+
+		System.out.print("Seu telefone: +55 ");
+		String telefone = in.next();
+
+		System.out.print("Seu email: ");
+		String email = in.next();
+
+		System.out.print("Digite seu CPF: ");
+		String cpf = in.next();
+
+		System.out.print("Digite sua senha: ");
+		String password = in.next();
+
+		LoginController novaConta = new LoginController(cpf, password, nome, matricula, tipoDeUsuario.toLowerCase(),
+				telefone, email);
+
+		novaConta.criarContaADM();
+
+	}
+
 	private void logout() {
 		Login.usuarioSessao = "";
+		Login.perfilAcessoUser = "";
 	}
 
 }
