@@ -14,9 +14,10 @@ import com.google.gson.GsonBuilder;
 import Biblioteca.model.Obra;
 import TypeAdapter.LocalDateTypeAdapter;
 import TypeAdapter.ObraTypeAdapter;
+import interfaces.ManipulacaoDeArquivos;
 import Biblioteca.model.Emprestimo;
 
-public class EmprestimoDao {
+public class EmprestimoDao implements ManipulacaoDeArquivos {
 	ArrayList<Emprestimo> emprestimos = new ArrayList<>();
 	private static final String ARQUIVO_JSON_EMPRESTIMOS = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_de_Gerenciamento_Bibliotecario_SPRING/src/resources/json/emprestimos.json";
 	private Gson gson;
@@ -25,10 +26,11 @@ public class EmprestimoDao {
 		this.gson = new GsonBuilder().setPrettyPrinting()
 				.registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter())
 				.registerTypeAdapter(Obra.class, new ObraTypeAdapter()).create();
-		carregarEmprestimos();
+		carregar();
 	}
 
-	private void carregarEmprestimos() {
+	@Override
+	public void carregar() {
 		try {
 			String json = new String(Files.readAllBytes(Paths.get(ARQUIVO_JSON_EMPRESTIMOS)));
 			Emprestimo[] arrayEmprestimos = gson.fromJson(json, Emprestimo[].class);
@@ -40,7 +42,8 @@ public class EmprestimoDao {
 		}
 	}
 
-	private void salvarDadosEmJson() throws IOException {
+	@Override
+	public void salvarDadosEmJson() throws IOException {
 		String jsonEmprestimos = gson.toJson(emprestimos);
 		try (FileWriter file = new FileWriter(ARQUIVO_JSON_EMPRESTIMOS)) {
 			file.write(jsonEmprestimos);

@@ -18,8 +18,9 @@ import Biblioteca.model.Usuario;
 import Excecoes.ObraNaoExisteException;
 import TypeAdapter.LocalDateTypeAdapter;
 import TypeAdapter.ObraTypeAdapter;
+import interfaces.ManipulacaoDeArquivos;
 
-public class DevolucaoDao {
+public class DevolucaoDao implements ManipulacaoDeArquivos {
 	ArrayList<Devolucao> devolucoes = new ArrayList<>();
 	private static final String ARQUIVO_JSON_DEVOLUCOES = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_de_Gerenciamento_Bibliotecario_SPRING/src/resources/json/devolucoes.json";
 	private Gson gson;
@@ -28,10 +29,11 @@ public class DevolucaoDao {
 		this.gson = new GsonBuilder().setPrettyPrinting()
 				.registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter())
 				.registerTypeAdapter(Obra.class, new ObraTypeAdapter()).create();
-		carregarEmprestimos();
+		carregar();
 	}
 
-	private void carregarEmprestimos() {
+	@Override
+	public void carregar() {
 		try {
 			String json = new String(Files.readAllBytes(Paths.get(ARQUIVO_JSON_DEVOLUCOES)));
 			Devolucao[] arrayDevolucoes = gson.fromJson(json, Devolucao[].class);
@@ -43,7 +45,8 @@ public class DevolucaoDao {
 		}
 	}
 
-	private void salvarDadosEmJson() throws IOException {
+	@Override
+	public void salvarDadosEmJson() throws IOException {
 		String jsonDevolucoes = gson.toJson(devolucoes);
 		try (FileWriter file = new FileWriter(ARQUIVO_JSON_DEVOLUCOES)) {
 			file.write(jsonDevolucoes);

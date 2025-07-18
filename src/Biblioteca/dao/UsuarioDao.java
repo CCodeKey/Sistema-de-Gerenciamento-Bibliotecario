@@ -8,21 +8,25 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.net.ssl.ManagerFactoryParameters;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import Biblioteca.model.Usuario;
+import interfaces.ManipulacaoDeArquivos;
 
-public class UsuarioDAO {
+public class UsuarioDao implements ManipulacaoDeArquivos {
 	ArrayList<Usuario> usuarios = new ArrayList<>();
 	private static final String ARQUIVO_JSON_USUARIOS = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_de_Gerenciamento_Bibliotecario_SPRING/src/resources/json/usuarios.json";
 	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-	public UsuarioDAO() {
-		carregarUsuarios();
+	public UsuarioDao() {
+		carregar();
 	}
 
-	private void carregarUsuarios() {
+	@Override
+	public void carregar() {
 		try {
 			String json = new String(Files.readAllBytes(Paths.get(ARQUIVO_JSON_USUARIOS))); // convertendo bytes em
 																							// String
@@ -36,7 +40,8 @@ public class UsuarioDAO {
 		}
 	}
 
-	private void salvarDadosEmJson() throws IOException {
+	@Override
+	public void salvarDadosEmJson() throws IOException {
 		String jsonUser = gson.toJson(usuarios);
 
 		try (FileWriter file = new FileWriter(ARQUIVO_JSON_USUARIOS)) {

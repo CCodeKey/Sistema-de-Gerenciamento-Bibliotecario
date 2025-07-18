@@ -16,8 +16,9 @@ import Biblioteca.model.Livro;
 import Biblioteca.model.Obra;
 import Biblioteca.model.Revista;
 import TypeAdapter.ObraTypeAdapter;
+import interfaces.ManipulacaoDeArquivos;
 
-public class ObraDao {
+public class ObraDao implements ManipulacaoDeArquivos {
 	private ArrayList<Obra> obras = new ArrayList<>();
 	private static final String ARQUIVO_JSON_OBRAS = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_de_Gerenciamento_Bibliotecario_SPRING/src/resources/json/obras.json";
 	private Gson gson;
@@ -26,11 +27,12 @@ public class ObraDao {
 	public ObraDao() {
 		this.gson = new GsonBuilder().setPrettyPrinting().registerTypeAdapter(Obra.class, new ObraTypeAdapter())
 				.create();
-		carregarObras();
+		carregar();
 		this.devolucaoDao = new DevolucaoDao();
 	}
 
-	private void carregarObras() {
+	@Override
+	public void carregar() {
 		try {
 			String json = new String(Files.readAllBytes(Paths.get(ARQUIVO_JSON_OBRAS)));
 			Obra[] arrayObras = gson.fromJson(json, Obra[].class);
@@ -42,7 +44,8 @@ public class ObraDao {
 		}
 	}
 
-	private void salvarDadosEmJson() throws IOException {
+	@Override
+	public void salvarDadosEmJson() throws IOException {
 		String json = gson.toJson(obras);
 
 		try (FileWriter file = new FileWriter(ARQUIVO_JSON_OBRAS)) {

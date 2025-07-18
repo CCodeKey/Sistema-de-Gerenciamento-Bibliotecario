@@ -2,7 +2,7 @@ package Biblioteca.controller;
 
 import java.io.IOException;
 
-import Biblioteca.dao.UsuarioDAO;
+import Biblioteca.dao.UsuarioDao;
 import Biblioteca.model.Usuario;
 import Excecoes.UsuarioExistenteException;
 import Excecoes.UsuarioNaoExisteException;
@@ -13,10 +13,10 @@ public class UsuarioController {
 	private String tipoUsuario;
 	private String telefone;
 	private String email;
-	private UsuarioDAO dao;
+	private UsuarioDao dao;
 
 	public UsuarioController() {
-		this.dao = new UsuarioDAO();
+		this.dao = new UsuarioDao();
 	}
 
 	public UsuarioController(String nome, String matricula, String tipoUsuario, String telefone, String email) {
@@ -25,7 +25,7 @@ public class UsuarioController {
 		this.tipoUsuario = tipoUsuario;
 		this.telefone = telefone;
 		this.email = email;
-		this.dao = new UsuarioDAO();
+		this.dao = new UsuarioDao();
 	}
 
 	public void novoUsuario() throws UsuarioExistenteException, IOException {
@@ -49,10 +49,6 @@ public class UsuarioController {
 			}
 			if (telefone.isEmpty() == false) {
 				usuario.setTelefone(telefone);
-
-			}
-			if (email.isEmpty() == false) {
-				usuario.setEmail(email);
 
 			}
 			dao.editarUsuario(usuario);

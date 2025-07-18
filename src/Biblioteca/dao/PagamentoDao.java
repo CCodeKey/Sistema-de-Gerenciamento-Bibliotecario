@@ -12,18 +12,20 @@ import com.google.gson.GsonBuilder;
 
 import Biblioteca.model.Pagamento;
 import TypeAdapter.ObraTypeAdapter;
+import interfaces.ManipulacaoDeArquivos;
 
-public class PagamentoDao {
+public class PagamentoDao implements ManipulacaoDeArquivos {
 	private ArrayList<Pagamento> pagamentos = new ArrayList<>();
 	private static final String ARQUIVO_JSON_PAGAMENTOS = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_de_Gerenciamento_Bibliotecario_SPRING/src/resources/json/pagamentos.json";
 	private Gson gson;
 
 	public PagamentoDao() {
 		this.gson = new GsonBuilder().setPrettyPrinting().create();
-		carregarPagamentos();
+		carregar();
 	}
 
-	private void carregarPagamentos() {
+	@Override
+	public void carregar() {
 		try {
 			String json = new String(Files.readAllBytes(Paths.get(ARQUIVO_JSON_PAGAMENTOS)));
 			Pagamento[] arrayPagamentos = gson.fromJson(json, Pagamento[].class);
@@ -35,7 +37,8 @@ public class PagamentoDao {
 		}
 	}
 
-	private void salvarDadosEmJson() throws IOException {
+	@Override
+	public void salvarDadosEmJson() throws IOException {
 		String json = gson.toJson(pagamentos);
 
 		try (FileWriter file = new FileWriter(ARQUIVO_JSON_PAGAMENTOS)) {
