@@ -71,5 +71,4 @@ public class UsuarioController {
 	public Usuario buscarUsuarioPorMatricula(String mat) {
 		return dao.buscarUsuarioPorMatricula(mat);
 	}
-
 }
