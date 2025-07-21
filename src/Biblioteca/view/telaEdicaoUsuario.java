@@ -5,6 +5,7 @@ import java.awt.*;
 import Biblioteca.controller.UsuarioController;
 import Biblioteca.model.Usuario;
 import javax.swing.JOptionPane;
+import Excecoes.UsuarioNaoExisteException;
 
 public class telaEdicaoUsuario extends JFrame {
     private JTextField txtMatriculaBusca;
@@ -74,19 +75,24 @@ public class telaEdicaoUsuario extends JFrame {
             }
 
             UsuarioController usuarioCtrl = new UsuarioController();
-            Usuario usuario = usuarioCtrl.buscarUsuarioPorMatricula(matricula);
 
-            if (usuario != null) {
-                txtNome.setText(usuario.getNome());
-                txtTelefone.setText(usuario.getTelefone());
-                txtEmail.setText(usuario.getEmail());
+            try {
+                Usuario usuario = usuarioCtrl.buscarUsuarioPorMatricula(matricula);
 
-                txtNome.setEnabled(true);
-                txtTelefone.setEnabled(true);
-                txtEmail.setEnabled(true);
-                btnSalvar.setEnabled(true);
-            } else {
-                JOptionPane.showMessageDialog(this, "Usuário não encontrado.");
+                if (usuario != null) {
+                    txtNome.setText(usuario.getNome());
+                    txtTelefone.setText(usuario.getTelefone());
+                    txtEmail.setText(usuario.getEmail());
+
+                    txtNome.setEnabled(true);
+                    txtTelefone.setEnabled(true);
+                    txtEmail.setEnabled(true);
+                    btnSalvar.setEnabled(true);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Usuário não encontrado.");
+                }
+            } catch (UsuarioNaoExisteException ex) {
+                JOptionPane.showMessageDialog(this, "Usuário não encontrado: " + ex.getMessage());
             }
         });
 
