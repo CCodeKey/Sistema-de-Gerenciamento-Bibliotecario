@@ -1,4 +1,6 @@
 package Biblioteca.view;
 
-public class telaExcluirUsuario {
+import javax.swing.*;
+
+public class telaExcluirUsuario extends JFrame {
 }
