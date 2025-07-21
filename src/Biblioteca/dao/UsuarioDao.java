@@ -18,7 +18,7 @@ import interfaces.ManipulacaoDeArquivos;
 
 public class UsuarioDao implements ManipulacaoDeArquivos {
 	ArrayList<Usuario> usuarios = new ArrayList<>();
-	private static final String ARQUIVO_JSON_USUARIOS = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_de_Gerenciamento_Bibliotecario_SPRING/src/resources/json/usuarios.json";
+	private static final String ARQUIVO_JSON_USUARIOS = "C:\\Users\\kaleu\\IdeaProjects\\Sistema-de-Gerenciamento-Bibliotecario\\src\\resources\\json\\usuarios.json";
 	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	public UsuarioDao() {

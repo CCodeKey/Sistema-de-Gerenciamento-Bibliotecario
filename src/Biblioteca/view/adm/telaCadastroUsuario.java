@@ -1,4 +1,4 @@
-package Biblioteca.view;
+package Biblioteca.view.adm;
 
 import Biblioteca.controller.UsuarioController;
 import javax.swing.*;

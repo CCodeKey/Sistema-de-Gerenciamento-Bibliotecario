@@ -1,4 +1,4 @@
-package Biblioteca.view;
+package Biblioteca.view.adm;
 
 public class telaCadastroAdmin {
 }

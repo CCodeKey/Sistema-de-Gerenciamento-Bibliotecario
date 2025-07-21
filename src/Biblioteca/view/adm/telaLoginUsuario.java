@@ -1,4 +1,4 @@
-package Biblioteca.view;
+package Biblioteca.view.adm;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,10 +11,7 @@ public class telaLoginUsuario extends JFrame {
         setLocationRelativeTo(null);
 
         JPanel painel = new JPanel();
-        painel.setLayout(new GridLayout(5, 3, 10, 10));
-
-        JLabel lblID =  new JLabel("ID: ");
-        JTextField txtID = new JTextField();
+        painel.setLayout(new GridLayout(4, 2, 10, 10));
 
         JLabel lblCPF = new JLabel("CPF: ");
         JTextField txtCPF = new JTextField();
@@ -25,8 +22,6 @@ public class telaLoginUsuario extends JFrame {
         JButton btnSalvar = new JButton("Salvar");
         JButton btnCancelar = new JButton("Cancelar");
 
-        painel.add(lblID);
-        painel.add(txtID);
         painel.add(lblCPF);
         painel.add(txtCPF);
         painel.add(lblPassword);

@@ -68,7 +68,7 @@ public class UsuarioController {
 		}
 	}
 
-	public Usuario buscarUsuarioPorMatricula(String mat) {
+	public Usuario buscarUsuarioPorMatricula(String mat) throws UsuarioNaoExisteException{
 		return dao.buscarUsuarioPorMatricula(mat);
 	}
 }
