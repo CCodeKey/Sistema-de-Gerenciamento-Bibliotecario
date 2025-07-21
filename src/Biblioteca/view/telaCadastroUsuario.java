@@ -1,5 +1,6 @@
 package Biblioteca.view;
 
+import Biblioteca.controller.UsuarioController;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -63,8 +64,7 @@ public class telaCadastroUsuario extends JFrame {
                 String numTelefone = txtNumTelefone.getText().trim();
                 String email = txtEmail.getText().trim();
 
-                if (nome.isEmpty() || matricula.isEmpty() || tipoUsuario.isEmpty()
-                        || numTelefone.isEmpty() || email.isEmpty()) {
+                if (nome.isEmpty() || matricula.isEmpty() || tipoUsuario.isEmpty() || numTelefone.isEmpty() || email.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos!");
                     return;
                 }
@@ -88,19 +88,20 @@ public class telaCadastroUsuario extends JFrame {
                     JOptionPane.showMessageDialog(null, "Email inválido.");
                     return;
                 }
-
-                JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!");
-                System.out.println("Nome: " + nome);
-                System.out.println("Matrícula: " + matricula);
-                System.out.println("Tipo de usuário: " + tipoUsuario);
-                System.out.println("Telefone: " + numTelefone);
-                System.out.println("Email: " + email);
+                try {
+                    UsuarioController controller = new UsuarioController(nome, matricula, tipoUsuario, numTelefone, email);
+                    controller.novoUsuario(); // <-- Aqui salva no JSON
+                    JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!");
+                    dispose();
+                } catch (Excecoes.UsuarioExistenteException ex) {
+                    JOptionPane.showMessageDialog(null, "Erro: já existe um usuário com essa matrícula.");
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Erro ao salvar o usuário.");
+                }
             }
         });
-
-
     }
-
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             new telaCadastroUsuario().setVisible(true);
