@@ -67,20 +67,45 @@ public class telaMenuPrincipal extends JFrame {
         btnCadastrarUsuario.addActionListener(e -> {
             new telaCadastroUsuario().setVisible(true);
         });
-        btnEditarUsuario.addActionListener(e -> System.out.println("Editar Usuário clicado"));
-        btnExcluirUsuario.addActionListener(e -> System.out.println("Excluir Usuário clicado"));
-        btnCadastrarObra.addActionListener(e -> System.out.println("Cadastrar Obra clicado"));
-        btnRealizarEmprestimo.addActionListener(e -> System.out.println("Realizar Empréstimo clicado"));
-        btnDevolucaoObra.addActionListener(e -> System.out.println("Devolução de Obra clicado"));
-        btnPagarMulta.addActionListener(e -> System.out.println("Pagar Devolução Pendente clicado"));
-        btnListarObras.addActionListener(e -> System.out.println("Listar Obras clicado"));
-        btnBuscarObraTitulo.addActionListener(e -> System.out.println("Buscar Obra por Título clicado"));
-        btnBuscarObraAutor.addActionListener(e -> System.out.println("Buscar Obra por Autor clicado"));
-        btnBuscarObraTipo.addActionListener(e -> System.out.println("Buscar Obra por Tipo clicado"));
-        btnRelatorioEmprestimosMes.addActionListener(e -> System.out.println("Relatório de Empréstimos do Mês clicado"));
-        btnRelatorioObrasMaisEmprestadas.addActionListener(e -> System.out.println("Relatório de Obras Mais Emprestadas clicado"));
-        btnRelatorioUsuariosAtrasados.addActionListener(e -> System.out.println("Relatório de Usuários Atrasados clicado"));
-        btnLogout.addActionListener(e -> System.out.println("Logout clicado"));
+        btnEditarUsuario.addActionListener(e -> {
+            new telaEdicaoUsuario().setVisible(true);
+        });
+        btnExcluirUsuario.addActionListener(e -> {;
+            new telaExcluirUsuario().setVisible(true);
+        });
+        btnCadastrarObra.addActionListener(e -> {
+            new telaCadastroObra().setVisible(true);
+        });
+        btnRealizarEmprestimo.addActionListener(e -> {
+            new telaEmprestimo().setVisible(true);
+        });
+        btnDevolucaoObra.addActionListener(e -> {
+            new telaDevolucaoObra().setVisible(true);
+        });
+        btnPagarMulta.addActionListener(e -> {
+            new telaDevolucaoObra().setVisible(true);
+        });
+        btnListarObras.addActionListener(e -> {
+            new telaListagemObras().setVisible(true);
+        });
+        btnBuscarObraTitulo.addActionListener(e -> {
+           new telaListagemObras().setVisible(true);
+        });
+        btnBuscarObraAutor.addActionListener(e -> {
+          new telaListagemObras().setVisible(true);
+        });
+        btnBuscarObraTipo.addActionListener(e -> {
+            new telaListagemObras().setVisible(true);
+        });
+        btnRelatorioEmprestimosMes.addActionListener(e -> {
+            new telaRelatorios().setVisible(true);
+        });
+        btnRelatorioObrasMaisEmprestadas.addActionListener(e -> {
+            new telaRelatorios().setVisible(true);
+        });
+        btnRelatorioUsuariosAtrasados.addActionListener(e -> {
+            new telaRelatorios().setVisible(true);
+        });
     }
 
     public static void main(String[] args) {
