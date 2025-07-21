@@ -3,6 +3,7 @@ package Biblioteca.view;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import Excecoes.UsuarioNaoExisteException;
 
 public class telaMenuPrincipal extends JFrame {
     private JButton btnCadastrarUsuario;
