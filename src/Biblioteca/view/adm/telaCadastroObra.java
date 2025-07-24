@@ -3,19 +3,17 @@ package Biblioteca.view.adm;
 import javax.swing.*;
 import java.awt.*;
 
-import Biblioteca.dao.ObraDao;
-import Biblioteca.model.Obra;
-
 public class telaCadastroObra extends JFrame {
 
     public telaCadastroObra() {
         setTitle("Cadastro de Obra");
-        setSize(500, 400);
+        setSize(400, 300);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
         JPanel painel = new JPanel();
         painel.setLayout(new GridLayout(6, 2, 10, 10));
+        painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         JLabel lblTitulo = new JLabel("Título:");
         JTextField txtTitulo = new JTextField();
@@ -38,10 +36,12 @@ public class telaCadastroObra extends JFrame {
         JButton btnSalvar = new JButton("Salvar");
         JButton btnCancelar = new JButton("Cancelar");
 
+        // Adiciona os elementos na ordem correta
         painel.add(lblTitulo);
         painel.add(txtTitulo);
         painel.add(lblAutor);
         painel.add(txtAutor);
+        painel.add(lblTipoObra);
         painel.add(comboTipoObra);
         painel.add(lblAnoPublicacao);
         painel.add(txtAnoPublicacao);
