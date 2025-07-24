@@ -13,6 +13,7 @@ public class telaEmprestimo extends JFrame {
 
         JPanel painel = new JPanel();
         painel.setLayout(new GridLayout(5, 2, 10, 10));
+        painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         JLabel lblMatricula = new JLabel("Matrícula do Usuário:");
         JTextField txtMatricula = new JTextField();

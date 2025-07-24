@@ -28,6 +28,7 @@ public class telaEdicaoUsuario extends JFrame {
 
     private void inicializarComponentes() {
         JPanel painel = new JPanel(new GridLayout(6, 2, 10, 10));
+        painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         painel.add(new JLabel("Matrícula para busca:"));
         txtMatriculaBusca = new JTextField();
