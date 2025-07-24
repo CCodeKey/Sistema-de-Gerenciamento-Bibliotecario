@@ -11,7 +11,6 @@ public class telaEdicaoUsuario extends JFrame {
     private JTextField txtMatriculaBusca;
     private JTextField txtNome;
     private JTextField txtTelefone;
-    private JTextField txtEmail;
     private JButton btnBuscar;
     private JButton btnSalvar;
     private JButton btnCancelar;
@@ -38,20 +37,15 @@ public class telaEdicaoUsuario extends JFrame {
         painel.add(btnBuscar);
         painel.add(new JLabel("")); // espaço vazio
 
-        painel.add(new JLabel("Nome:"));
+        painel.add(new JLabel("Novo Nome:"));
         txtNome = new JTextField();
         txtNome.setEnabled(false);
         painel.add(txtNome);
 
-        painel.add(new JLabel("Telefone:"));
+        painel.add(new JLabel("Novo Telefone:"));
         txtTelefone = new JTextField();
         txtTelefone.setEnabled(false);
         painel.add(txtTelefone);
-
-        painel.add(new JLabel("Email:"));
-        txtEmail = new JTextField();
-        txtEmail.setEnabled(false);
-        painel.add(txtEmail);
 
         btnSalvar = new JButton("Salvar");
         btnSalvar.setEnabled(false);
@@ -82,11 +76,9 @@ public class telaEdicaoUsuario extends JFrame {
                 if (usuario != null) {
                     txtNome.setText(usuario.getNome());
                     txtTelefone.setText(usuario.getTelefone());
-                    txtEmail.setText(usuario.getEmail());
 
                     txtNome.setEnabled(true);
                     txtTelefone.setEnabled(true);
-                    txtEmail.setEnabled(true);
                     btnSalvar.setEnabled(true);
                 } else {
                     JOptionPane.showMessageDialog(this, "Usuário não encontrado.");
@@ -100,16 +92,15 @@ public class telaEdicaoUsuario extends JFrame {
             String matricula = txtMatriculaBusca.getText().trim();
             String nome = txtNome.getText().trim();
             String telefone = txtTelefone.getText().trim();
-            String email = txtEmail.getText().trim();
 
-            if (nome.isEmpty() || telefone.isEmpty() || email.isEmpty()) {
+            if (nome.isEmpty() || telefone.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Preencha todos os campos.");
                 return;
             }
 
             UsuarioController usuarioCtrl = new UsuarioController();
             try {
-                usuarioCtrl.editarUsuario(matricula, nome, telefone, email);
+                usuarioCtrl.editarUsuario(matricula, nome, telefone);
                 JOptionPane.showMessageDialog(this, "Usuário atualizado com sucesso.");
                 limparCampos();
             } catch (Exception ex) {
@@ -124,10 +115,8 @@ public class telaEdicaoUsuario extends JFrame {
         txtMatriculaBusca.setText("");
         txtNome.setText("");
         txtTelefone.setText("");
-        txtEmail.setText("");
         txtNome.setEnabled(false);
         txtTelefone.setEnabled(false);
-        txtEmail.setEnabled(false);
         btnSalvar.setEnabled(false);
     }
 
