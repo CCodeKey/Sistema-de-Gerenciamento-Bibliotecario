@@ -17,6 +17,7 @@ public class telaDevolucaoObra extends JFrame {
         setLocationRelativeTo(null);
 
         JPanel painel = new JPanel(new GridLayout(3, 2, 10, 10));
+        painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         JLabel lblIdEmprestimo = new JLabel("ID do Empréstimo:");
         JTextField txtIdEmprestimo = new JTextField();

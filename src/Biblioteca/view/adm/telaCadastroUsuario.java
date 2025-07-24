@@ -22,6 +22,7 @@ public class telaCadastroUsuario extends JFrame {
 
         JPanel painel = new JPanel();
         painel.setLayout(new GridLayout(7, 2, 10, 10));
+        painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         JLabel lblNome = new JLabel("Nome:");
         txtNome = new JTextField();
