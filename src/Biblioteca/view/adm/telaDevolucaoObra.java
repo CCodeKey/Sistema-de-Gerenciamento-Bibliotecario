@@ -3,61 +3,72 @@ package Biblioteca.view.adm;
 import javax.swing.*;
 import java.awt.*;
 
+import Biblioteca.controller.DevolucaoController;
+import Excecoes.*;
+
+import java.io.IOException;
+
 public class telaDevolucaoObra extends JFrame {
+
     public telaDevolucaoObra() {
         setTitle("Devolução de Obra");
-        setSize(500, 400);
+        setSize(400, 200);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        JPanel painel = new JPanel();
-        painel.setLayout(new GridLayout(7, 2, 10, 10)); // 7 linhas, 2 colunas, espaçamento 10px
+        JPanel painel = new JPanel(new GridLayout(3, 2, 10, 10));
 
-        JLabel lblMatricula = new JLabel("Matrícula do Usuário:");
-        JTextField txtMatricula = new JTextField();
+        JLabel lblIdEmprestimo = new JLabel("ID do Empréstimo:");
+        JTextField txtIdEmprestimo = new JTextField();
 
-        JLabel lblCodigoObra = new JLabel("Código da Obra:");
-        JTextField txtCodigoObra = new JTextField();
-
-        JLabel lblDataDevolucao = new JLabel("Data da Devolução:");
-        JTextField txtDataDevolucao = new JTextField();
-
-        JLabel lblStatus = new JLabel("Status da Devolução:");
-        JTextField txtStatus = new JTextField();
-        txtStatus.setEditable(false); // só exibição
-
-        JLabel lblMulta = new JLabel("Multa (se houver):");
-        JTextField txtMulta = new JTextField();
-        txtMulta.setEditable(false); // só exibição
-
-        JButton btnCalcular = new JButton("Calcular");
-        JButton btnRegistrarPagamento = new JButton("Registrar Pagamento");
+        JButton btnConfirmar = new JButton("Confirmar Devolução");
         JButton btnCancelar = new JButton("Cancelar");
 
-        painel.add(lblMatricula);
-        painel.add(txtMatricula);
+        painel.add(lblIdEmprestimo);
+        painel.add(txtIdEmprestimo);
+        painel.add(btnConfirmar);
+        painel.add(btnCancelar);
 
-        painel.add(lblCodigoObra);
-        painel.add(txtCodigoObra);
+        add(painel);
 
-        painel.add(lblDataDevolucao);
-        painel.add(txtDataDevolucao);
+        btnCancelar.addActionListener(e -> dispose());
 
-        painel.add(lblStatus);
-        painel.add(txtStatus);
+        btnConfirmar.addActionListener(e -> {
+            try {
+                int idEmprestimo = Integer.parseInt(txtIdEmprestimo.getText());
 
-        painel.add(lblMulta);
-        painel.add(txtMulta);
+                DevolucaoController devolucaoController = new DevolucaoController(idEmprestimo);
+                devolucaoController.registrarDevolucao();
 
-        painel.add(btnCalcular);
-        painel.add(btnRegistrarPagamento);
+                if (devolucaoController.isMulta() != null) {
+                    String[] opcoes = {"Dinheiro", "Pix", "Cartão"};
+                    String metodo = (String) JOptionPane.showInputDialog(
+                            this,
+                            "Escolha o método de pagamento da multa:",
+                            "Pagamento de Multa",
+                            JOptionPane.QUESTION_MESSAGE,
+                            null,
+                            opcoes,
+                            opcoes[0]
+                    );
 
-        // última linha só com botão cancelar centralizado
-        JPanel painelCancelar = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        painelCancelar.add(btnCancelar);
+                    if (metodo != null) {
+                        devolucaoController.pagamentoDeMulta(metodo.toLowerCase());
+                        JOptionPane.showMessageDialog(this, "Pagamento realizado com sucesso!");
+                    }
+                }
 
-        add(painel, BorderLayout.CENTER);
-        add(painelCancelar, BorderLayout.SOUTH);
+                JOptionPane.showMessageDialog(this, "Devolução registrada com sucesso!");
+                dispose();
+
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Por favor, insira um número válido para o ID do empréstimo.");
+            } catch (EmprestimoNaoEncontradoException | MetodoDePagamentoException |
+                     UsuarioNaoExisteException | ValoresNegativosException |
+                     IOException | DevolucaoException ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        });
     }
 
     public static void main(String[] args) {
