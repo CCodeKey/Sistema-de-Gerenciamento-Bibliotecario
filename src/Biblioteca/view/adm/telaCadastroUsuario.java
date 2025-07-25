@@ -33,6 +33,7 @@ public class telaCadastroUsuario extends JFrame {
         JLabel lblTipoUsuario = new JLabel("Tipo do usuário:");
         txtTipoUsuario = new JTextField();
 
+
         JLabel lblNumTelefone = new JLabel("Número de Telefone:");
         txtNumTelefone = new JTextField();
 

@@ -20,7 +20,7 @@ import interfaces.ManipulacaoDeArquivos;
 
 public class ObraDao implements ManipulacaoDeArquivos {
 	private ArrayList<Obra> obras = new ArrayList<>();
-	private static final String ARQUIVO_JSON_OBRAS = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_de_Gerenciamento_Bibliotecario_SPRING/src/resources/json/obras.json";
+	private static final String ARQUIVO_JSON_OBRAS = "C:\\Users\\kaleu\\IdeaProjects\\Sistema-de-Gerenciamento-Bibliotecario\\src\\resources\\json\\obra.json";
 	private Gson gson;
 	private DevolucaoDao devolucaoDao;
 

@@ -19,7 +19,7 @@ import Biblioteca.model.Emprestimo;
 
 public class EmprestimoDao implements ManipulacaoDeArquivos {
 	ArrayList<Emprestimo> emprestimos = new ArrayList<>();
-	private static final String ARQUIVO_JSON_EMPRESTIMOS = "";
+	private static final String ARQUIVO_JSON_EMPRESTIMOS = "C:\\Users\\kaleu\\IdeaProjects\\Sistema-de-Gerenciamento-Bibliotecario\\src\\resources\\json\\emprestimo.json";
 	private Gson gson;
 
 	public EmprestimoDao() {

@@ -18,6 +18,7 @@ public class telaMenuPrincipal extends JFrame {
     private JButton btnRelatorioEmprestimosMes;
     private JButton btnRelatorioObrasMaisEmprestadas;
     private JButton btnRelatorioUsuariosAtrasados;
+    private JButton btnCadastrarUsuarioAdministrador;
     private JButton btnLogout;
 
     public telaMenuPrincipal() {
@@ -27,23 +28,25 @@ public class telaMenuPrincipal extends JFrame {
         setLocationRelativeTo(null);
 
         JPanel painel = new JPanel();
-        painel.setLayout(new GridLayout(15, 1, 5, 5));
+        painel.setLayout(new GridLayout(16, 1, 5, 5));
+        painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        btnCadastrarUsuario = new JButton("1. Cadastrar Usuário");
-        btnEditarUsuario = new JButton("2. Editar Usuário");
-        btnExcluirUsuario = new JButton("3. Excluir Usuário");
-        btnCadastrarObra = new JButton("4. Cadastrar Obra");
-        btnRealizarEmprestimo = new JButton("5. Realizar Empréstimo");
-        btnDevolucaoObra = new JButton("6. Devolução de Obra");
-        btnPagarMulta = new JButton("7. Pagar Devolução Pendente");
-        btnListarObras = new JButton("8. Listar Obras");
-        btnBuscarObraTitulo = new JButton("9. Buscar Obra por Título");
-        btnBuscarObraAutor = new JButton("10. Buscar Obra por Autor");
-        btnBuscarObraTipo = new JButton("11. Buscar Obra por Tipo");
-        btnRelatorioEmprestimosMes = new JButton("12. Relatório de Empréstimos do Mês");
-        btnRelatorioObrasMaisEmprestadas = new JButton("13. Relatório de Obras Mais Emprestadas");
-        btnRelatorioUsuariosAtrasados = new JButton("14. Relatório de Usuários Atrasados");
-        btnLogout = new JButton("15. Logout");
+        btnCadastrarUsuario = new JButton("Cadastrar Usuário");
+        btnEditarUsuario = new JButton("Editar Usuário");
+        btnExcluirUsuario = new JButton("Excluir Usuário");
+        btnCadastrarObra = new JButton("Cadastrar Obra");
+        btnRealizarEmprestimo = new JButton("Realizar Empréstimo");
+        btnDevolucaoObra = new JButton("Devolução de Obra");
+        btnPagarMulta = new JButton("Pagar Devolução Pendente");
+        btnListarObras = new JButton("Listar Obras");
+        btnBuscarObraTitulo = new JButton("Buscar Obra por Título");
+        btnBuscarObraAutor = new JButton("Buscar Obra por Autor");
+        btnBuscarObraTipo = new JButton("Buscar Obra por Tipo");
+        btnRelatorioEmprestimosMes = new JButton("Relatório de Empréstimos do Mês");
+        btnRelatorioObrasMaisEmprestadas = new JButton("Relatório de Obras Mais Emprestadas");
+        btnRelatorioUsuariosAtrasados = new JButton("Relatório de Usuários Atrasados");
+        btnCadastrarUsuarioAdministrador = new JButton("Cadastrar Usuário Administrador");
+        btnLogout = new JButton("Logout");
 
         painel.add(btnCadastrarUsuario);
         painel.add(btnEditarUsuario);
@@ -59,6 +62,7 @@ public class telaMenuPrincipal extends JFrame {
         painel.add(btnRelatorioEmprestimosMes);
         painel.add(btnRelatorioObrasMaisEmprestadas);
         painel.add(btnRelatorioUsuariosAtrasados);
+        painel.add(btnCadastrarUsuarioAdministrador);
         painel.add(btnLogout);
 
         add(painel);
@@ -82,25 +86,28 @@ public class telaMenuPrincipal extends JFrame {
             new telaDevolucaoObra().setVisible(true);
         });
         btnPagarMulta.addActionListener(e -> {
-            new telaDevolucaoObra().setVisible(true);
+            new telaPagamentoMulta(12).setVisible(true);
         });
         btnListarObras.addActionListener(e -> {
             new telaListagemObras().setVisible(true);
         });
         btnBuscarObraTitulo.addActionListener(e -> {
-           new telaListagemObras().setVisible(true);
+           new telaListagemObraTitulo().setVisible(true);
         });
         btnBuscarObraAutor.addActionListener(e -> {
-          new telaListagemObras().setVisible(true);
+          new telaListagemObraAutor().setVisible(true);
         });
         btnBuscarObraTipo.addActionListener(e -> {
-            new telaListagemObras().setVisible(true);
+            new telaListagemObraTipo().setVisible(true);
         });
         btnRelatorioEmprestimosMes.addActionListener(e -> {
             new telaRelatorios().setVisible(true);
         });
         btnRelatorioObrasMaisEmprestadas.addActionListener(e -> {
             new telaRelatorios().setVisible(true);
+        });
+        btnCadastrarUsuarioAdministrador.addActionListener(e -> {
+            new telaCadastroAdmin();
         });
         btnRelatorioUsuariosAtrasados.addActionListener(e -> {
             new telaRelatorios().setVisible(true);
