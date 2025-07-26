@@ -98,19 +98,21 @@ public class ObraController {
 		return dao.listarObrasAtrasadas();
 	}
 
-	public Obra buscarPorTitulo(String titulo) throws ObraNaoEncontradaException {
-		if (dao.buscarPorTitulo(titulo) == null) {
+	public List<Obra> buscarPorTitulo(String titulo) throws ObraNaoEncontradaException {
+		List<Obra> obrasEncontradas = dao.buscarPorTitulo(titulo);
+		if (obrasEncontradas == null || obrasEncontradas.isEmpty()) {
 			throw new ObraNaoEncontradaException();
-
 		}
-		return dao.buscarPorTitulo(titulo);
+		return obrasEncontradas;
 	}
 
+
 	public List<Obra> buscarPorAutor(String autor) throws ObraNaoEncontradaException {
-		if (dao.buscarPorAutor(autor) == null || dao.buscarPorAutor(autor).isEmpty()) {
+		List<Obra> obrasEncontradas = dao.buscarPorAutor(autor);
+		if (obrasEncontradas == null || obrasEncontradas.isEmpty()) {
 			throw new ObraNaoEncontradaException();
 		}
-		return dao.buscarPorAutor(autor);
+		return obrasEncontradas;
 	}
 
 	public List<Obra> buscarPorTipo(String tipo) throws ObraNaoEncontradaException {

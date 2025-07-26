@@ -63,5 +63,4 @@ public class Emprestimo {
 		return "Emprestimo [obra=" + obra + ", usuario=" + usuario + ", dataDoEmprestimo=" + dataDoEmprestimo
 				+ ", dataDaDevolucao=" + dataDaDevolucao + ", devolvido=" + devolvido + "]";
 	}
-
 }

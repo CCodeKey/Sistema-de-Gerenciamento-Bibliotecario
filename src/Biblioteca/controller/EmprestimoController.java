@@ -66,22 +66,25 @@ public class EmprestimoController {
 		return uid;
 	}
 
-	public void realizarEmprestimo()
+	public Emprestimo realizarEmprestimo()
 			throws UsuarioNaoExisteException, ObraNaoExisteException, IOException, ObraNaoDisponivelException {
-		if (validarInformacoes() == true) {
-			this.obra.setStatus("ocupado");
+        Emprestimo emprestimo = null;
+        if (validarInformacoes() == true) {
+            this.obra.setStatus("ocupado");
 
-			ObraController controller = new ObraController();
-			controller.ocuparObra(this.obra.getCodigo());
+            ObraController controller = new ObraController();
+            controller.ocuparObra(this.obra.getCodigo());
 
-			dataDeDevolucaoDaObra();
+            dataDeDevolucaoDaObra();
 
-			Emprestimo emprestimo = new Emprestimo(idEmprestimo(), obra, usuario, dataDoEmprestimo.toString(),
-					dataDaDevolucao.toString(), false);
+            emprestimo = new Emprestimo(idEmprestimo(), obra, usuario, dataDoEmprestimo.toString(),
+                    dataDaDevolucao.toString(), false);
 
-			dao.salvarEmprestimo(emprestimo);
-		}
-	}
+            dao.salvarEmprestimo(emprestimo);
+
+        }
+        return emprestimo;
+    }
 
 	public Emprestimo buscarEmprestimo(int idEmprestimo) {
 		return dao.buscarEmprestimo(idEmprestimo);

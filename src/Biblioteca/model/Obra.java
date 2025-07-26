@@ -1,8 +1,9 @@
 package Biblioteca.model;
 
+import java.util.List;
 import java.util.Objects;
 
-public abstract class Obra {
+public abstract class Obra{
 	private long codigo;
 	private String titulo;
 	private String autor;

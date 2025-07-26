@@ -136,28 +136,24 @@ public class ObraDao implements ManipulacaoDeArquivos {
 		}
 	}
 
-	public Obra buscarPorTitulo(String titulo) {
-		if (obras.size() > 0) {
-			for (Obra obra : obras) {
-				if (obra.getTitulo().toLowerCase().equals(titulo.toLowerCase())) {
-					return obra;
+	public List<Obra> buscarPorTitulo(String titulo) {
+		List<Obra> resultados = new ArrayList<>();
+		for (Obra obra : obras) {
+				if (obra.getTitulo().equalsIgnoreCase(titulo.toLowerCase())) {
+					resultados.add(obra);
 				}
-			}
 		}
-		return null;
+		return resultados;
 	}
 
 	public List<Obra> buscarPorAutor(String autor) {
-		if (obras.size() > 0) {
-			List<Obra> obras_autor = new ArrayList<>();
-			for (Obra obra : obras) {
-				if (obra.getAutor().toLowerCase().equals(autor.toLowerCase())) {
-					obras_autor.add(obra);
-				}
+		List<Obra> resultados = new ArrayList<>();
+		for (Obra obra : obras) {
+			if (obra.getAutor().equalsIgnoreCase(autor.toLowerCase())) {
+				resultados.add(obra);
 			}
-			return obras_autor;
 		}
-		return null;
+		return resultados;
 	}
 
 	public List<Obra> buscarPorTipo(String tipo) {
