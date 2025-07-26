@@ -3,6 +3,7 @@ package Biblioteca.view.adm;
 import Biblioteca.controller.EmprestimoController;
 import Biblioteca.dao.ObraDao;
 import Biblioteca.dao.UsuarioDao;
+import Biblioteca.model.Emprestimo;
 import Biblioteca.model.Obra;
 import Biblioteca.model.Usuario;
 import Excecoes.*;
@@ -97,9 +98,13 @@ public class telaEmprestimo extends JFrame {
             }
 
             EmprestimoController emprestimoController = new EmprestimoController(usuario, obra);
-            emprestimoController.realizarEmprestimo();
 
-            JOptionPane.showMessageDialog(this, "Empréstimo realizado com sucesso!");
+            Emprestimo emprestimo = emprestimoController.realizarEmprestimo();
+
+            JOptionPane.showMessageDialog(this,
+                    "Empréstimo realizado com sucesso!\nID: " + emprestimo.getId() +
+                            "\nData de devolução: " + emprestimo.getDataDaDevolucao());
+
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Campos de matrícula e código devem ser numéricos.");
         } catch (UsuarioNaoExisteException | ObraNaoExisteException | ObraNaoDisponivelException ex) {
@@ -111,8 +116,6 @@ public class telaEmprestimo extends JFrame {
         }
     }
 
-
-    // Main para teste isolado
     public static void main(String[] args) {
         SwingUtilities.invokeLater(telaEmprestimo::new);
     }

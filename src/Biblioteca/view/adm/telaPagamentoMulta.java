@@ -1,61 +1,82 @@
 package Biblioteca.view.adm;
 
+import Biblioteca.dao.DevolucaoDao;
+import Biblioteca.model.Devolucao;
+
 import javax.swing.*;
-import java.awt.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.List;
 
 public class telaPagamentoMulta extends JFrame {
 
-    public telaPagamentoMulta(double valorMulta) {
+    private DevolucaoDao dao = new DevolucaoDao();
+    private List<Devolucao> devolucoesPendentes;
+
+    private JComboBox<String> comboMultas;
+    private JButton botaoPagar;
+
+    public telaPagamentoMulta() {
         setTitle("Pagamento de Multa");
-        setSize(400, 250);
+        setSize(400, 200);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        JPanel painelPrincipal = new JPanel();
-        painelPrincipal.setLayout(new BorderLayout(10, 10));
-        painelPrincipal.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        // Inicialização dos componentes
+        comboMultas = new JComboBox<>();
+        botaoPagar = new JButton("Pagar");
 
-        JPanel painelCampos = new JPanel(new GridLayout(3, 2, 10, 10));
+        // Painel e layout
+        JPanel painel = new JPanel();
+        painel.add(comboMultas);
+        painel.add(botaoPagar);
+        setContentPane(painel);
 
-        JLabel lblValor = new JLabel("Valor da Multa:");
-        JTextField txtValor = new JTextField(String.format("R$ %.2f", valorMulta));
-        txtValor.setEditable(false);
+        // Carrega multas pendentes no comboBox
+        carregarMultasPendentes();
 
-        JLabel lblForma = new JLabel("Forma de Pagamento:");
-        String[] opcoes = {"Dinheiro", "Cartão", "Pix"};
-        JComboBox<String> comboForma = new JComboBox<>(opcoes);
+        // Ação do botão
+        botaoPagar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                realizarPagamento();
+            }
+        });
+    }
 
-        JLabel lblData = new JLabel("Data do Pagamento:");
-        JTextField txtData = new JTextField(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-        txtData.setEditable(false);
+    private void carregarMultasPendentes() {
+        devolucoesPendentes = dao.devolucoesNaoPagas();
 
-        painelCampos.add(lblValor);
-        painelCampos.add(txtValor);
-        painelCampos.add(lblForma);
-        painelCampos.add(comboForma);
-        painelCampos.add(lblData);
-        painelCampos.add(txtData);
+        comboMultas.removeAllItems(); // Limpa o comboBox antes de adicionar novamente
 
-        JPanel painelBotoes = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
-        JButton btnConfirmar = new JButton("Confirmar");
-        JButton btnCancelar = new JButton("Cancelar");
+        for (Devolucao d : devolucoesPendentes) {
+            comboMultas.addItem("ID: " + d.getEmprestimo().getId() + " | Valor: R$ " + d.getMulta().getValorDaMulta());
+        }
+    }
 
-        painelBotoes.add(btnConfirmar);
-        painelBotoes.add(btnCancelar);
+    private void realizarPagamento() {
+        int indexSelecionado = comboMultas.getSelectedIndex();
 
-        painelPrincipal.add(painelCampos, BorderLayout.CENTER);
-        painelPrincipal.add(painelBotoes, BorderLayout.SOUTH);
-
-        add(painelPrincipal);
-
-        btnCancelar.addActionListener(e -> dispose());
+        if (indexSelecionado >= 0) {
+            Devolucao devolucaoSelecionada = devolucoesPendentes.get(indexSelecionado);
+            try {
+                dao.atualizarStatusPagamentoEmMulta(devolucaoSelecionada);
+                JOptionPane.showMessageDialog(this, "Multa paga com sucesso!");
+                carregarMultasPendentes(); // Atualiza a lista após pagamento
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(this, "Erro ao pagar multa: " + e.getMessage());
+                e.printStackTrace();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione uma multa para pagar.");
+        }
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            new telaPagamentoMulta(12.50).setVisible(true);
+            telaPagamentoMulta tela = new telaPagamentoMulta();
+            tela.setVisible(true);
         });
     }
 }

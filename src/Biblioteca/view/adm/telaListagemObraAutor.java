@@ -2,33 +2,72 @@ package Biblioteca.view.adm;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+
+import Biblioteca.controller.ObraController;
+import Biblioteca.model.Obra;
+import Excecoes.ObraNaoEncontradaException;
+import Excecoes.ObraNaoExisteException;
 
 public class telaListagemObraAutor extends JFrame {
+    private JTextField txtAutor;
+    private JTextArea txtResultado;
+
     public telaListagemObraAutor() {
         setTitle("Listagem de Obras por Autor");
-        setSize(500, 400);
-        setLocationRelativeTo(null);
+        setSize(600, 400);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
+        initComponents();
+    }
 
-        String[] colunas = {"Autor", "Título", "Tipo", "Ano"};
-        Object[][] dados = {}; // Dados serão preenchidos depois
+    private void initComponents() {
+        setLayout(new BorderLayout());
 
-        JTable tabela = new JTable(dados, colunas);
-        JScrollPane scrollPane = new JScrollPane(tabela);
+        JPanel painelBusca = new JPanel();
+        painelBusca.add(new JLabel("Autor:"));
+        txtAutor = new JTextField(20);
+        painelBusca.add(txtAutor);
+        JButton btnBuscar = new JButton("Buscar");
+        painelBusca.add(btnBuscar);
 
-        JButton btnFechar = new JButton("Fechar");
-        btnFechar.addActionListener(e -> dispose());
+        add(painelBusca, BorderLayout.NORTH);
 
-        JPanel painel = new JPanel(new BorderLayout());
-        painel.add(scrollPane, BorderLayout.CENTER);
-        painel.add(btnFechar, BorderLayout.SOUTH);
+        txtResultado = new JTextArea();
+        txtResultado.setEditable(false);
+        add(new JScrollPane(txtResultado), BorderLayout.CENTER);
 
-        add(painel);
+        btnBuscar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                buscarPorAutor();
+            }
+        });
+    }
+
+    private void buscarPorAutor() {
+        txtResultado.setText("");
+        ObraController controller = new ObraController();
+        String autor = txtAutor.getText().trim();
+
+        try {
+            List<Obra> obras = controller.buscarPorAutor(autor);
+            for (Obra o : obras) {
+                txtResultado.append(formatarObra(o));
+            }
+        } catch (ObraNaoEncontradaException e) {
+            txtResultado.setText("Nenhuma obra encontrada com esse autor.");
+        }
+    }
+
+    private String formatarObra(Obra o) {
+        return String.format("Código: %d\nTítulo: %s\nAutor: %s\nAno: %d\nTipo: %s\n\n",
+                o.getCodigo(), o.getTitulo(), o.getAutor(), o.getAnoDePublicacao(), o.getClass().getSimpleName());
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new telaListagemObraAutor().setVisible(true);
-        });
+        SwingUtilities.invokeLater(() -> new telaListagemObraAutor().setVisible(true));
     }
 }

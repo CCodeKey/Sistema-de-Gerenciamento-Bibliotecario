@@ -1,5 +1,7 @@
 package Biblioteca.view.adm;
 
+import Biblioteca.view.adm.*;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -86,7 +88,7 @@ public class telaMenuPrincipal extends JFrame {
             new telaDevolucaoObra().setVisible(true);
         });
         btnPagarMulta.addActionListener(e -> {
-            new telaPagamentoMulta(12).setVisible(true);
+            new telaPagamentoMulta().setVisible(true);
         });
         btnListarObras.addActionListener(e -> {
             new telaListagemObras().setVisible(true);
