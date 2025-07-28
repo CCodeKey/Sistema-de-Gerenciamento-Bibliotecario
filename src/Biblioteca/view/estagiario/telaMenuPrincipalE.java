@@ -25,7 +25,7 @@ public class telaMenuPrincipalE extends JFrame {
 
         JPanel painel = new JPanel();
         painel.setLayout(new GridLayout(3, 2, 5, 5));
-        painel.setBorder(BorderFactory.createEmptyBorder(70, 70, 70, 70));
+        painel.setBorder(BorderFactory.createEmptyBorder(190, 70, 190, 70));
 
         btnDevolucaoObra = new JButton("Devolução de Obra");
         btnPagarMulta = new JButton("Pagar Devolução Pendente");

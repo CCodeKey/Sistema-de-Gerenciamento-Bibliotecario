@@ -55,7 +55,6 @@ public class telaCadastroAdmin extends JFrame {
         btnCadastrar = new JButton("Cadastrar");
         painel.add(btnCadastrar);
 
-        // Espaço em branco para alinhar
         painel.add(new JLabel(""));
 
         add(painel);

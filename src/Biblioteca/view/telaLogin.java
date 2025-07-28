@@ -18,7 +18,7 @@ public class telaLogin extends JFrame {
 
     private JTextField nomeField;
     private JTextField matriculaField;
-    private JTextField tipoUsuarioField;
+    private JComboBox<String> tipoUsuarioComboBox;
     private JTextField telefoneField;
     private JTextField emailField;
     private JTextField cpfFieldCadastro;
@@ -50,7 +50,7 @@ public class telaLogin extends JFrame {
         JPanel cadastroPanel = new JPanel(new GridLayout(8, 2, 10, 10));
         nomeField = new JTextField();
         matriculaField = new JTextField();
-        tipoUsuarioField = new JTextField();
+        tipoUsuarioComboBox = new JComboBox<>(new String[]{"bibliotecário", "estagiário"});
         telefoneField = new JTextField();
         emailField = new JTextField();
         cpfFieldCadastro = new JTextField();
@@ -62,7 +62,7 @@ public class telaLogin extends JFrame {
         cadastroPanel.add(new JLabel("Matrícula:"));
         cadastroPanel.add(matriculaField);
         cadastroPanel.add(new JLabel("Tipo de Usuário:"));
-        cadastroPanel.add(tipoUsuarioField);
+        cadastroPanel.add(tipoUsuarioComboBox);
         cadastroPanel.add(new JLabel("Telefone: +55"));
         cadastroPanel.add(telefoneField);
         cadastroPanel.add(new JLabel("Email:"));
@@ -96,9 +96,9 @@ public class telaLogin extends JFrame {
 
             switch (tipo) {
                 case "administrador":
-                    JOptionPane.showMessageDialog(this, "Acesso - Administrador.");
-                    dispose();
+                    JOptionPane.showMessageDialog(this, "Acesso - Administrador");
                     new telaMenuPrincipalA();
+                    dispose();
                     break;
                 case "bibliotecário":
                     JOptionPane.showMessageDialog(this, "Acesso - Bibliotecário.");
@@ -123,14 +123,21 @@ public class telaLogin extends JFrame {
         try {
             String nome = nomeField.getText().trim();
             String matricula = matriculaField.getText().trim();
-            String tipo = tipoUsuarioField.getText().trim().toLowerCase();
+            String tipo = tipoUsuarioComboBox.getSelectedItem().toString().toLowerCase();
             String telefone = telefoneField.getText().trim();
             String email = emailField.getText().trim();
             String cpf = cpfFieldCadastro.getText().trim();
             String senha = new String(senhaFieldCadastro.getPassword()).trim();
 
-            if (!tipo.equals("administrador") && !tipo.equals("bibliotecário") && !tipo.equals("estagiário")) {
-                JOptionPane.showMessageDialog(this, "Tipo de usuário inválido! Use: administrador, bibliotecário ou estagiário.", "Erro", JOptionPane.ERROR_MESSAGE);
+
+            if (nome.isBlank() || matricula.isBlank() || tipo.isBlank() || telefone.isBlank() ||
+                    email.isBlank() || cpf.isBlank() || senha.isBlank()) {
+                JOptionPane.showMessageDialog(this, "Todos os campos devem ser preenchidos!", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (!tipo.equals("bibliotecário") && !tipo.equals("estagiário")) {
+                JOptionPane.showMessageDialog(this, "Tipo de usuário inválido! Use: bibliotecário ou estagiário.", "Erro", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -145,13 +152,13 @@ public class telaLogin extends JFrame {
             }
 
             LoginController novaConta = new LoginController(cpf, senha, nome, matricula, tipo, telefone, email);
-            novaConta.criarContaADM();
+            novaConta.criarConta();;
 
             JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso!");
 
             nomeField.setText("");
             matriculaField.setText("");
-            tipoUsuarioField.setText("");
+            tipoUsuarioComboBox.setSelectedIndex(0);
             telefoneField.setText("");
             emailField.setText("");
             cpfFieldCadastro.setText("");

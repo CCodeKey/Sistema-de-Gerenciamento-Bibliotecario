@@ -73,7 +73,7 @@ public class Login {
 		LoginController novaConta = new LoginController(cpf, password, nome, matricula, tipoDeUsuario.toLowerCase(),
 				telefone, email);
 
-		novaConta.criarContaADM();
+		novaConta.criarConta();
 
 	}
 }

@@ -8,7 +8,7 @@ import java.awt.event.*;
 public class telaCadastroUsuario extends JFrame {
     private JTextField txtNome;
     private JTextField txtMatricula;
-    private JTextField txtTipoUsuario;
+    private JComboBox<String> comboTipoUsuario;
     private JTextField txtNumTelefone;
     private JTextField txtEmail;
     private JButton btnSalvar;
@@ -31,8 +31,7 @@ public class telaCadastroUsuario extends JFrame {
         txtMatricula = new JTextField();
 
         JLabel lblTipoUsuario = new JLabel("Tipo do usuário:");
-        txtTipoUsuario = new JTextField();
-
+        comboTipoUsuario = new JComboBox<>(new String[]{"aluno", "professor", "funcionário"});
 
         JLabel lblNumTelefone = new JLabel("Número de Telefone:");
         txtNumTelefone = new JTextField();
@@ -48,7 +47,7 @@ public class telaCadastroUsuario extends JFrame {
         painel.add(lblMatricula);
         painel.add(txtMatricula);
         painel.add(lblTipoUsuario);
-        painel.add(txtTipoUsuario);
+        painel.add(comboTipoUsuario);
         painel.add(lblNumTelefone);
         painel.add(txtNumTelefone);
         painel.add(lblEmail);
@@ -62,7 +61,7 @@ public class telaCadastroUsuario extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String nome = txtNome.getText().trim();
                 String matricula = txtMatricula.getText().trim();
-                String tipoUsuario = txtTipoUsuario.getText().trim().toLowerCase();
+                String tipoUsuario = comboTipoUsuario.getSelectedItem().toString();
                 String numTelefone = txtNumTelefone.getText().trim();
                 String email = txtEmail.getText().trim();
 
@@ -92,7 +91,7 @@ public class telaCadastroUsuario extends JFrame {
                 }
                 try {
                     UsuarioController controller = new UsuarioController(nome, matricula, tipoUsuario, numTelefone, email);
-                    controller.novoUsuario(); // <-- Aqui salva no JSON
+                    controller.novoUsuario();
                     JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!");
                     dispose();
                 } catch (Excecoes.UsuarioExistenteException ex) {

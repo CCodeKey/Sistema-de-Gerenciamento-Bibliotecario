@@ -42,7 +42,7 @@ public class LoginController {
 		return 0;
 	}
 
-	public void criarContaADM() throws IOException, UsuarioInformacoesInvalidas {
+	public void criarConta() throws IOException, UsuarioInformacoesInvalidas {
 		UsuarioLogin user = new UsuarioLogin(id, nome, matricula, tipoUsuario, telefone, email, cpf, password);
 
 		if (dao.verificarExistenciaDoUsuario(user) != null) {
@@ -52,6 +52,21 @@ public class LoginController {
 		dao.criarConta(user);
 
 	}
+
+	public void criarContaADM() throws IOException, UsuarioInformacoesInvalidas {
+		if (!tipoUsuario.equalsIgnoreCase("administrador")) {
+			throw new UsuarioInformacoesInvalidas();
+		}
+
+		UsuarioLogin user = new UsuarioLogin(id, nome, matricula, tipoUsuario, telefone, email, cpf, password);
+
+		if (dao.verificarExistenciaDoUsuario(user) != null) {
+			throw new UsuarioInformacoesInvalidas();
+		}
+
+		dao.criarConta(user);
+	}
+
 
 	public UsuarioLogin logar() {
 		UsuarioLogin user = dao.efetuarLogin(cpf, password);
