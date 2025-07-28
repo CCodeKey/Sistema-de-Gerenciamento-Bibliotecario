@@ -1,4 +1,4 @@
-package Biblioteca.view.adm;
+package Biblioteca.view.bibliotecario;
 
 import Biblioteca.controller.EmprestimoController;
 import Biblioteca.dao.ObraDao;

@@ -1,4 +1,4 @@
-package Biblioteca.view.adm;
+package Biblioteca.view.bibliotecario;
 
 import javax.swing.*;
 import java.awt.*;

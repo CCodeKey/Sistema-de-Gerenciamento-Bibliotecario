@@ -1,4 +1,4 @@
-package Biblioteca.view.adm;
+package Biblioteca.view.bibliotecario;
 
 import Biblioteca.dao.DevolucaoDao;
 import Biblioteca.model.Devolucao;

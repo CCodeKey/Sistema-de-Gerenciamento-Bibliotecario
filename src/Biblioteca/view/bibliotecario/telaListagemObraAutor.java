@@ -1,4 +1,4 @@
-package Biblioteca.view.adm;
+package Biblioteca.view.bibliotecario;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,14 +9,13 @@ import java.util.List;
 import Biblioteca.controller.ObraController;
 import Biblioteca.model.Obra;
 import Excecoes.ObraNaoEncontradaException;
-import Excecoes.ObraNaoExisteException;
 
-public class telaListagemObraTitulo extends JFrame {
-    private JTextField txtTitulo;
+public class telaListagemObraAutor extends JFrame {
+    private JTextField txtAutor;
     private JTextArea txtResultado;
 
-    public telaListagemObraTitulo() {
-        setTitle("Listagem de Obras por Título");
+    public telaListagemObraAutor() {
+        setTitle("Listagem de Obras por Autor");
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -27,9 +26,9 @@ public class telaListagemObraTitulo extends JFrame {
         setLayout(new BorderLayout());
 
         JPanel painelBusca = new JPanel();
-        painelBusca.add(new JLabel("Título:"));
-        txtTitulo = new JTextField(20);
-        painelBusca.add(txtTitulo);
+        painelBusca.add(new JLabel("Autor:"));
+        txtAutor = new JTextField(20);
+        painelBusca.add(txtAutor);
         JButton btnBuscar = new JButton("Buscar");
         painelBusca.add(btnBuscar);
 
@@ -42,23 +41,23 @@ public class telaListagemObraTitulo extends JFrame {
         btnBuscar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                buscarPorTitulo();
+                buscarPorAutor();
             }
         });
     }
 
-    private void buscarPorTitulo() {
+    private void buscarPorAutor() {
         txtResultado.setText("");
         ObraController controller = new ObraController();
-        String titulo = txtTitulo.getText().trim();
+        String autor = txtAutor.getText().trim();
 
         try {
-            List<Obra> obras = controller.buscarPorTitulo(titulo);
+            List<Obra> obras = controller.buscarPorAutor(autor);
             for (Obra o : obras) {
                 txtResultado.append(formatarObra(o));
             }
         } catch (ObraNaoEncontradaException e) {
-            txtResultado.setText("Nenhuma obra encontrada com esse título.");
+            txtResultado.setText("Nenhuma obra encontrada com esse autor.");
         }
     }
 
@@ -68,6 +67,6 @@ public class telaListagemObraTitulo extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new telaListagemObraTitulo().setVisible(true));
+        SwingUtilities.invokeLater(() -> new telaListagemObraAutor().setVisible(true));
     }
 }

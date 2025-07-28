@@ -3,8 +3,10 @@ package relatorio;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -40,10 +42,13 @@ public class RelatorioObras implements Relatorio {
 
 	public RelatorioObras() {
 		this.emprestimos = new EmprestimoController();
-		String path = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_de_Gerenciamento_Bibliotecario_SPRING/src/resources/pdf/";
-		this.arquivoPDF = path + "relatorio_de_obras_data-" + LocalDate.now().toString() + "_hora-"
-				+ LocalTime.now().toString() + ".pdf";
 
+		String path = "C:\\Users\\kaleu\\IdeaProjects\\Sistema-de-Gerenciamento-Bibliotecario\\src\\relatorio\\relatorios\\";
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
+		String dataHoraFormatada = LocalDateTime.now().format(formatter);
+
+		this.arquivoPDF = path + "relatorio_de_emprestimos_" + dataHoraFormatada + ".pdf";
 	}
 
 	@Override
