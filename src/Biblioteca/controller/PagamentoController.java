@@ -52,7 +52,7 @@ public class PagamentoController {
 			throw new ValoresNegativosException();
 		}
 
-		if (metodoDePagamento.equals("pix") || metodoDePagamento.equals("cartao")
+		if (metodoDePagamento.equals("pix") || metodoDePagamento.equals("cartão")
 				|| metodoDePagamento.equals("dinheiro")) {
 
 		} else {
@@ -76,8 +76,8 @@ public class PagamentoController {
 		return uid;
 	}
 
-	public void pagar()
-			throws MetodoDePagamentoException, UsuarioNaoExisteException, ValoresNegativosException, IOException, DevolucaoException {
+	public void pagar() throws MetodoDePagamentoException, UsuarioNaoExisteException, ValoresNegativosException,
+			IOException, DevolucaoException {
 		if (validarInformações() == true) {
 			Pagamento pg = new Pagamento(gerarIdPagamento(), valorPago, horarioDoPagamento.toString(),
 					dataDoPagamento.toString(), metodoDePagamento, usuario, status);

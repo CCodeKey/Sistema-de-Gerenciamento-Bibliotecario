@@ -10,7 +10,6 @@ import Biblioteca.dao.DevolucaoDao;
 import Biblioteca.model.Devolucao;
 import Biblioteca.model.Emprestimo;
 import Biblioteca.model.Multa;
-import Biblioteca.model.Obra;
 import Biblioteca.model.Usuario;
 import Excecoes.DevolucaoException;
 import Excecoes.EmprestimoNaoEncontradoException;
@@ -29,7 +28,7 @@ public class DevolucaoController {
 	private ObraController obraController;
 	private DevolucaoDao dao;
 	private Devolucao devolucao;
-	private static final double VALOR_MULTA_POR_DIA = 10;
+	private static final double VALOR_MULTA_POR_DIA = 8.75;
 	private static final double MULTA_MAXIMA = 1000.00;
 
 	public DevolucaoController() {
@@ -74,9 +73,8 @@ public class DevolucaoController {
 
 	private void calcularMulta() throws IOException {
 		long diasDeAtraso = ChronoUnit.DAYS.between(dataDevolucaoReal, dataDevolucaoDoEmprestimo);
-		double mult = Math.min(diasDeAtraso * VALOR_MULTA_POR_DIA, MULTA_MAXIMA); // Calcula multa com valor máximo
+		double mult = Math.min(diasDeAtraso * VALOR_MULTA_POR_DIA, MULTA_MAXIMA);
 		this.multaCalculada = mult * (-1);
-		// TODO: Gerar o ID da multa;
 		this.multa = new Multa(gerarIdMulta(), emprestimo, multaCalculada, dataDevolucaoDoEmprestimo.toString(), false);
 	}
 
@@ -92,8 +90,6 @@ public class DevolucaoController {
 
 		this.devolucao = new Devolucao(emprestimo, dataDevolucaoReal, atrasado, multa);
 		dao.registrarDevolucao(this.devolucao);
-
-		System.out.println("Devolução realizada com sucesso!");
 	}
 
 	public void pagamentoDeMulta(String metodoDePagamento) throws MetodoDePagamentoException, UsuarioNaoExisteException,
@@ -106,7 +102,6 @@ public class DevolucaoController {
 
 			atualizarStatusPagamentoEmMulta(this.devolucao);
 
-			System.out.println("Pagamento realizado com sucesso!");
 		} else {
 			throw new MetodoDePagamentoException(emprestimo.getUsuario());
 		}

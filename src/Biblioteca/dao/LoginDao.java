@@ -10,14 +10,13 @@ import java.util.Arrays;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import Biblioteca.model.Usuario;
 import Biblioteca.model.UsuarioLogin;
 import interfaces.ManipulacaoDeArquivos;
 
 public class LoginDao implements ManipulacaoDeArquivos {
 
 	ArrayList<UsuarioLogin> usuarios_login = new ArrayList<>();
-	private static final String ARQUIVO_JSON_USUARIOS_LOGIN = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_de_Gerenciamento_Bibliotecario_SPRING/src/resources/json/usr_login.json";
+	private static final String ARQUIVO_JSON_USUARIOS_LOGIN = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_versao_interface/Sistema-de-Gerenciamento-Bibliotecario/src/resources/json/login.json";
 	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	public LoginDao() {
@@ -27,16 +26,14 @@ public class LoginDao implements ManipulacaoDeArquivos {
 	@Override
 	public void carregar() {
 		try {
-			String json = new String(Files.readAllBytes(Paths.get(ARQUIVO_JSON_USUARIOS_LOGIN))); // convertendo bytes
-																									// em
-			// String
-			UsuarioLogin[] arrayUsuarios = gson.fromJson(json, UsuarioLogin[].class); // convertendo json para array de
-																						// usuarios
+			String json = new String(Files.readAllBytes(Paths.get(ARQUIVO_JSON_USUARIOS_LOGIN)));
+
+			UsuarioLogin[] arrayUsuarios = gson.fromJson(json, UsuarioLogin[].class);
+
 			if (arrayUsuarios != null) {
-				usuarios_login = new ArrayList<>(Arrays.asList(arrayUsuarios)); // array -> lista -> ArrayList
+				usuarios_login = new ArrayList<>(Arrays.asList(arrayUsuarios));
 			}
 		} catch (IOException e) {
-			// Se não tiver usuarios, vai começar vazia
 			usuarios_login = new ArrayList<>();
 		}
 	}
@@ -78,39 +75,15 @@ public class LoginDao implements ManipulacaoDeArquivos {
 		return null;
 	}
 
-//	public void salvarUsuario(Usuario usuario) throws IOException {
-//		usuarios.add(usuario);
-//		salvarDadosEmJson();
-//	}
-//
-//	public void editarUsuario(Usuario usuarioNovo) throws IOException {
-//		for (Usuario userAntigo : usuarios) {
-//			if (userAntigo.getMatricula().equals(usuarioNovo.getMatricula())) {
-//				usuarios.remove(userAntigo);
-//				usuarios.add(usuarioNovo);
-//				break;
-//			}
-//		}
-//		salvarDadosEmJson();
-//	}
-//
-//	public Usuario buscarUsuarioPorMatricula(String matricula) {
-//		for (Usuario usr : usuarios) {
-//			if (usr.getMatricula().equals(matricula)) {
-//				return usr;
-//			}
-//		}
-//		return null;
-//	}
-//
-//	public void excluirUsuario(String matricula) throws IOException {
-//		for (Usuario user : usuarios) {
-//			if (user.getMatricula().equals(matricula)) {
-//				usuarios.remove(user);
-//				break;
-//			}
-//		}
-//		salvarDadosEmJson();
-//	}
+	public boolean verificarId(long id) {
+		if (usuarios_login.size() > 0) {
+			for (UsuarioLogin usr : usuarios_login) {
+				if (usr.getId() == id) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
 
 }

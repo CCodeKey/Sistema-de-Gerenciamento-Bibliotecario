@@ -1,10 +1,10 @@
 package Biblioteca.controller;
 
 import java.io.IOException;
+import java.util.Random;
 
 import Biblioteca.dao.LoginDao;
 import Biblioteca.model.UsuarioLogin;
-import Excecoes.UsuarioExistenteException;
 import Excecoes.UsuarioInformacoesInvalidas;
 
 public class LoginController {
@@ -38,11 +38,18 @@ public class LoginController {
 		this.id = gerarId();
 	}
 
-	public long gerarId() {
-		return 0;
+	private long gerarId() {
+		Random ramdom = new Random();
+		int uid = ramdom.nextInt(1000000000);
+
+		if (dao.verificarId(uid) == false) {
+			gerarId();
+		}
+
+		return uid;
 	}
 
-	public void criarContaADM() throws IOException, UsuarioInformacoesInvalidas {
+	public void criarConta() throws IOException, UsuarioInformacoesInvalidas {
 		UsuarioLogin user = new UsuarioLogin(id, nome, matricula, tipoUsuario, telefone, email, cpf, password);
 
 		if (dao.verificarExistenciaDoUsuario(user) != null) {
@@ -51,6 +58,17 @@ public class LoginController {
 
 		dao.criarConta(user);
 
+	}
+
+	public void criarContaADM() throws IOException, UsuarioInformacoesInvalidas {
+
+		UsuarioLogin user = new UsuarioLogin(id, nome, matricula, "administrador", telefone, email, cpf, password);
+
+		if (dao.verificarExistenciaDoUsuario(user) != null) {
+			throw new UsuarioInformacoesInvalidas();
+		}
+
+		dao.criarConta(user);
 	}
 
 	public UsuarioLogin logar() {

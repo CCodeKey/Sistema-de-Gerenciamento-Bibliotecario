@@ -15,14 +15,13 @@ import com.google.gson.GsonBuilder;
 import Biblioteca.model.Devolucao;
 import Biblioteca.model.Obra;
 import Biblioteca.model.Usuario;
-import Excecoes.ObraNaoExisteException;
 import TypeAdapter.LocalDateTypeAdapter;
 import TypeAdapter.ObraTypeAdapter;
 import interfaces.ManipulacaoDeArquivos;
 
 public class DevolucaoDao implements ManipulacaoDeArquivos {
 	ArrayList<Devolucao> devolucoes = new ArrayList<>();
-	private static final String ARQUIVO_JSON_DEVOLUCOES = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_de_Gerenciamento_Bibliotecario_SPRING/src/resources/json/devolucoes.json";
+	private static final String ARQUIVO_JSON_DEVOLUCOES = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_versao_interface/Sistema-de-Gerenciamento-Bibliotecario/src/resources/json/devolucoes.json";
 	private Gson gson;
 
 	public DevolucaoDao() {

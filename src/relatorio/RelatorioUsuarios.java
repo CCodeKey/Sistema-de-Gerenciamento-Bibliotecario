@@ -2,17 +2,16 @@ package relatorio;
 
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.Month;
+
+import java.time.LocalDateTime;
+
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -25,14 +24,9 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import Biblioteca.controller.DevolucaoController;
-import Biblioteca.controller.EmprestimoController;
-import Biblioteca.model.Artigo;
-import Biblioteca.model.Emprestimo;
-import Biblioteca.model.Livro;
-import Biblioteca.model.Obra;
-import Biblioteca.model.Revista;
+
 import Biblioteca.model.Usuario;
-import Excecoes.EmprestimoNaoEncontradoException;
+
 import Excecoes.UsuarioNaoExisteException;
 import interfaces.Relatorio;
 
@@ -44,10 +38,12 @@ public class RelatorioUsuarios implements Relatorio {
 	public RelatorioUsuarios() {
 		this.devolucoes = new DevolucaoController();
 
-		String path = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_de_Gerenciamento_Bibliotecario_SPRING/src/resources/pdf/";
-		this.arquivoPDF = path + "relatorio_de_usuarios_data-" + LocalDate.now().toString() + "_hora-"
-				+ LocalTime.now().toString() + ".pdf";
+		String path = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_versao_interface/Sistema-de-Gerenciamento-Bibliotecario/src/resources/pdf/";
 
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
+		String dataHoraFormatada = LocalDateTime.now().format(formatter);
+
+		this.arquivoPDF = path + "relatorio_de_usuarios_" + dataHoraFormatada + ".pdf";
 	}
 
 	@Override
@@ -98,14 +94,13 @@ public class RelatorioUsuarios implements Relatorio {
 
 		documento.close();
 
-		System.out.println("Relatório gerado com sucesso!");
 	}
 
 	private void adicionarCelula(PdfPTable tabela, String texto, boolean cabecalho) {
 		PdfPCell celula = new PdfPCell(new Phrase(texto));
 		celula.setPadding(5);
 		if (cabecalho) {
-			celula.setBackgroundColor(new BaseColor(200, 200, 200)); // Cinza
+			celula.setBackgroundColor(new BaseColor(200, 200, 200));
 		}
 		tabela.addCell(celula);
 	}

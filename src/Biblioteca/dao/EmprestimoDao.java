@@ -19,7 +19,7 @@ import Biblioteca.model.Emprestimo;
 
 public class EmprestimoDao implements ManipulacaoDeArquivos {
 	ArrayList<Emprestimo> emprestimos = new ArrayList<>();
-	private static final String ARQUIVO_JSON_EMPRESTIMOS = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_de_Gerenciamento_Bibliotecario_SPRING/src/resources/json/emprestimos.json";
+	private static final String ARQUIVO_JSON_EMPRESTIMOS = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_versao_interface/Sistema-de-Gerenciamento-Bibliotecario/src/resources/json/emprestimo.json";
 	private Gson gson;
 
 	public EmprestimoDao() {

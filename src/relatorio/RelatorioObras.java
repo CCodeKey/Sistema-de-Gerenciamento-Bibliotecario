@@ -2,17 +2,16 @@ package relatorio;
 
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.Month;
+
+import java.time.LocalDateTime;
+
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -40,10 +39,13 @@ public class RelatorioObras implements Relatorio {
 
 	public RelatorioObras() {
 		this.emprestimos = new EmprestimoController();
-		String path = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_de_Gerenciamento_Bibliotecario_SPRING/src/resources/pdf/";
-		this.arquivoPDF = path + "relatorio_de_obras_data-" + LocalDate.now().toString() + "_hora-"
-				+ LocalTime.now().toString() + ".pdf";
 
+		String path = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_versao_interface/Sistema-de-Gerenciamento-Bibliotecario/src/resources/pdf/";
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
+		String dataHoraFormatada = LocalDateTime.now().format(formatter);
+
+		this.arquivoPDF = path + "relatorio_de_obras_mais_emprestadas_" + dataHoraFormatada + ".pdf";
 	}
 
 	@Override
@@ -104,14 +106,13 @@ public class RelatorioObras implements Relatorio {
 
 		documento.close();
 
-		System.out.println("Relatório gerado com sucesso!");
 	}
 
 	private void adicionarCelula(PdfPTable tabela, String texto, boolean cabecalho) {
 		PdfPCell celula = new PdfPCell(new Phrase(texto));
 		celula.setPadding(5);
 		if (cabecalho) {
-			celula.setBackgroundColor(new BaseColor(200, 200, 200)); // Cinza
+			celula.setBackgroundColor(new BaseColor(200, 200, 200)); // cor Cinza
 		}
 		tabela.addCell(celula);
 	}

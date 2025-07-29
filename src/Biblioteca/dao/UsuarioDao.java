@@ -6,9 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-
-import javax.net.ssl.ManagerFactoryParameters;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -18,7 +15,7 @@ import interfaces.ManipulacaoDeArquivos;
 
 public class UsuarioDao implements ManipulacaoDeArquivos {
 	ArrayList<Usuario> usuarios = new ArrayList<>();
-	private static final String ARQUIVO_JSON_USUARIOS = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_de_Gerenciamento_Bibliotecario_SPRING/src/resources/json/usuarios.json";
+	private static final String ARQUIVO_JSON_USUARIOS = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_versao_interface/Sistema-de-Gerenciamento-Bibliotecario/src/resources/json/usuarios.json";
 	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	public UsuarioDao() {
@@ -28,14 +25,14 @@ public class UsuarioDao implements ManipulacaoDeArquivos {
 	@Override
 	public void carregar() {
 		try {
-			String json = new String(Files.readAllBytes(Paths.get(ARQUIVO_JSON_USUARIOS))); // convertendo bytes em
-																							// String
-			Usuario[] arrayUsuarios = gson.fromJson(json, Usuario[].class); // convertendo json para array de usuarios
+			String json = new String(Files.readAllBytes(Paths.get(ARQUIVO_JSON_USUARIOS)));
+
+			Usuario[] arrayUsuarios = gson.fromJson(json, Usuario[].class);
 			if (arrayUsuarios != null) {
-				usuarios = new ArrayList<>(Arrays.asList(arrayUsuarios)); // array -> lista -> ArrayList
+				usuarios = new ArrayList<>(Arrays.asList(arrayUsuarios));
 			}
 		} catch (IOException e) {
-			// Se não tiver usuarios, vai começar vazia
+
 			usuarios = new ArrayList<>();
 		}
 	}

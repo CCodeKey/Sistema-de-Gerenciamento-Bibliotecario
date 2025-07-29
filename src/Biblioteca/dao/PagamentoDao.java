@@ -11,12 +11,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import Biblioteca.model.Pagamento;
-import TypeAdapter.ObraTypeAdapter;
 import interfaces.ManipulacaoDeArquivos;
 
 public class PagamentoDao implements ManipulacaoDeArquivos {
 	private ArrayList<Pagamento> pagamentos = new ArrayList<>();
-	private static final String ARQUIVO_JSON_PAGAMENTOS = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_de_Gerenciamento_Bibliotecario_SPRING/src/resources/json/pagamentos.json";
+	private static final String ARQUIVO_JSON_PAGAMENTOS = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_versao_interface/Sistema-de-Gerenciamento-Bibliotecario/src/resources/json/pagamento.json";
 	private Gson gson;
 
 	public PagamentoDao() {
