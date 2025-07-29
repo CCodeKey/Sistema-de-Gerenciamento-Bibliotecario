@@ -5,26 +5,40 @@ Um sistema simples para gerenciar empréstimos de livros em uma biblioteca. Foi 
 - Empréstimos, devoluções e pagamentos
 - Relatórios em PDF
 
----
-
 ## 🚀 Como usar
 1. Requisitos: Java 17+ instalado
-2. Executar:
+2. clonar o repositório
+```git
+git clone https://github.com/CCodeKey/Sistema-de-Gerenciamento-Bibliotecario/
+```
+3. Executar:
 ```bash
 java -jar biblioteca.jar
 ```
 
-
----
+## ⚙️ Tecnologias utilizadas
+- Java
+- iText
+- Gson
 
 ## 📂 Estrutura do Projeto
 ```text
-biblioteca/  
-├── model/      # Classes (Livro, Usuario, etc.)  
-├── dao/        # Salvar dados em JSON  
-├── view/       # Telas (Java Swing)  
-└── controller/ # Lógica do sistema  
+src
+├── Biblioteca/  
+    ├── model/      # Classes (Livro, Usuario, etc.)  
+    ├── dao/        # Salvar dados em JSON  
+    ├── view/       # Telas (Java Swing)  
+    └── controller/ # Lógica do sistema
+├── Excecoes/       # Classes de Exceções
+├── TypeAdapter/    # Classes de conversão e tipagem
+├── Interface/      # Interfaces de relatórios e DAOs
+├── lib/            # Jar das bibliotecas utilizadas no projeto
+├── Relatorio/      # Classes que geram os relatórios
+└── resources/
+    ├── json/       # Arquivos Json
+    └── pdf/        # Relatórios PDF
 ```
+
 ## Autores:
 <table>
     <tr>
