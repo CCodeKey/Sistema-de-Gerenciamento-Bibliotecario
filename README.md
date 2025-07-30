@@ -23,20 +23,20 @@ java -jar biblioteca.jar
 
 ## 📂 Estrutura do Projeto
 ```text
-src
-├── Biblioteca/  
-    ├── model/      # Classes (Livro, Usuario, etc.)  
-    ├── dao/        # Salvar dados em JSON  
-    ├── view/       # Telas (Java Swing)  
-    └── controller/ # Lógica do sistema
-├── Excecoes/       # Classes de Exceções
-├── TypeAdapter/    # Classes de conversão e tipagem
-├── Interface/      # Interfaces de relatórios e DAOs
-├── lib/            # Jar das bibliotecas utilizadas no projeto
-├── Relatorio/      # Classes que geram os relatórios
-└── resources/
-    ├── json/       # Arquivos Json
-    └── pdf/        # Relatórios PDF
+├── src
+    ├── Biblioteca/  
+        ├── model/       # Classes (Livro, Usuario, etc.)  
+        ├── dao/         # Salvar dados em JSON  
+        ├── view/        # Telas (Java Swing)  
+        └── controller/  # Lógica do sistema
+    ├── Excecoes/        # Classes de Exceções
+    ├── TypeAdapter/     # Classes de conversão e tipagem
+    ├── Interface/       # Interfaces de relatórios e DAOs
+    ├── lib/             # Jar das bibliotecas utilizadas no projeto
+    └── Relatorio/       # Classes que geram os relatórios
+└── resources/           # Pasta que se encontra fora do src
+    ├── json/            # Arquivos Json
+    └── pdf/             # Relatórios PDF
 ```
 
 ## Autores:
