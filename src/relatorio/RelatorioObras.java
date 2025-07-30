@@ -40,7 +40,7 @@ public class RelatorioObras implements Relatorio {
 	public RelatorioObras() {
 		this.emprestimos = new EmprestimoController();
 
-		String path = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_versao_interface/Sistema-de-Gerenciamento-Bibliotecario/src/resources/pdf/";
+		String path = "resources/pdf/";
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
 		String dataHoraFormatada = LocalDateTime.now().format(formatter);

@@ -20,7 +20,7 @@ import interfaces.ManipulacaoDeArquivos;
 
 public class ObraDao implements ManipulacaoDeArquivos {
 	private ArrayList<Obra> obras = new ArrayList<>();
-	private static final String ARQUIVO_JSON_OBRAS = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_versao_interface/Sistema-de-Gerenciamento-Bibliotecario/src/resources/json/obra.json";
+	private static final String ARQUIVO_JSON_OBRAS = "resources/json/obra.json";
 	private Gson gson;
 	private DevolucaoDao devolucaoDao;
 
@@ -34,7 +34,9 @@ public class ObraDao implements ManipulacaoDeArquivos {
 	@Override
 	public void carregar() {
 		try {
+
 			String json = new String(Files.readAllBytes(Paths.get(ARQUIVO_JSON_OBRAS)));
+
 			Obra[] arrayObras = gson.fromJson(json, Obra[].class);
 			if (arrayObras != null) {
 				obras = new ArrayList<>(Arrays.asList(arrayObras));

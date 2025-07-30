@@ -2,21 +2,21 @@ package Biblioteca.dao;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import Biblioteca.model.UsuarioLogin;
 import interfaces.ManipulacaoDeArquivos;
 
 public class LoginDao implements ManipulacaoDeArquivos {
 
 	ArrayList<UsuarioLogin> usuarios_login = new ArrayList<>();
-	private static final String ARQUIVO_JSON_USUARIOS_LOGIN = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_versao_interface/Sistema-de-Gerenciamento-Bibliotecario/src/resources/json/login.json";
+	private static final String ARQUIVO_JSON_USUARIOS_LOGIN = "resources/json/login.json";
 	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	public LoginDao() {

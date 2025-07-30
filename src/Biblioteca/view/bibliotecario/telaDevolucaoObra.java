@@ -42,7 +42,9 @@ public class telaDevolucaoObra extends JFrame {
 			String listaEmString = "";
 			try {
 				for (Emprestimo emp : empController.listarEmprestimos()) {
-					listaEmString += "° ID=" + emp.getId() + ", NOME=" + emp.getUsuario().getNome() + "\n";
+					if(emp.getDevolvido() == false) {
+						listaEmString += "° ID=" + emp.getId() + ", NOME=" + emp.getUsuario().getNome() + "\n";
+					}
 				}
 			} catch (EmprestimoNaoEncontradoException e1) {
 				e1.printStackTrace();

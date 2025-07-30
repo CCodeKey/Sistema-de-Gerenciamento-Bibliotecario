@@ -2,6 +2,7 @@ package Biblioteca.dao;
 
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -19,13 +20,14 @@ import Biblioteca.model.Emprestimo;
 
 public class EmprestimoDao implements ManipulacaoDeArquivos {
 	ArrayList<Emprestimo> emprestimos = new ArrayList<>();
-	private static final String ARQUIVO_JSON_EMPRESTIMOS = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_versao_interface/Sistema-de-Gerenciamento-Bibliotecario/src/resources/json/emprestimo.json";
+	private static final String ARQUIVO_JSON_EMPRESTIMOS = "resources/json/emprestimo.json";
 	private Gson gson;
 
 	public EmprestimoDao() {
 		this.gson = new GsonBuilder().setPrettyPrinting()
 				.registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter())
 				.registerTypeAdapter(Obra.class, new ObraTypeAdapter()).create();
+
 		carregar();
 	}
 
@@ -33,6 +35,7 @@ public class EmprestimoDao implements ManipulacaoDeArquivos {
 	public void carregar() {
 		try {
 			String json = new String(Files.readAllBytes(Paths.get(ARQUIVO_JSON_EMPRESTIMOS)));
+
 			Emprestimo[] arrayEmprestimos = gson.fromJson(json, Emprestimo[].class);
 			if (arrayEmprestimos != null) {
 				emprestimos = new ArrayList<>(Arrays.asList(arrayEmprestimos));
@@ -88,7 +91,7 @@ public class EmprestimoDao implements ManipulacaoDeArquivos {
 	}
 
 	public List<Emprestimo> listarEmprestimos() {
-		if (emprestimos.size() > 1) {
+		if (emprestimos.size() >= 1) {
 			return emprestimos;
 		}
 		return null;

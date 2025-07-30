@@ -21,7 +21,7 @@ import interfaces.ManipulacaoDeArquivos;
 
 public class DevolucaoDao implements ManipulacaoDeArquivos {
 	ArrayList<Devolucao> devolucoes = new ArrayList<>();
-	private static final String ARQUIVO_JSON_DEVOLUCOES = "/home/code/Documents/workspace-spring-tool-suite-4-4.29.1.RELEASE/Sistema_versao_interface/Sistema-de-Gerenciamento-Bibliotecario/src/resources/json/devolucoes.json";
+	private static final String ARQUIVO_JSON_DEVOLUCOES = "resources/json/devolucoes.json";
 	private Gson gson;
 
 	public DevolucaoDao() {
@@ -35,6 +35,7 @@ public class DevolucaoDao implements ManipulacaoDeArquivos {
 	public void carregar() {
 		try {
 			String json = new String(Files.readAllBytes(Paths.get(ARQUIVO_JSON_DEVOLUCOES)));
+
 			Devolucao[] arrayDevolucoes = gson.fromJson(json, Devolucao[].class);
 			if (arrayDevolucoes != null) {
 				devolucoes = new ArrayList<>(Arrays.asList(arrayDevolucoes));

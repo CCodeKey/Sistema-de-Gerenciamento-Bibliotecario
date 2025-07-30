@@ -1,0 +1,2 @@
+Main-Class: Biblioteca.view.Main
+Class-Path: lib/gson-2.13.1.jar lib/itextpdf-5.5.13.3.jar
